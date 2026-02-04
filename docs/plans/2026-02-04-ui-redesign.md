@@ -141,6 +141,32 @@ Display all agents with their current status. No filtering behavior (display onl
 - Status label: "Idle", "Active", "Blocked"
 - Scrollable container
 
+## Task Card
+
+### Layout
+
+```
+┌─────────────────────────┐
+│ CardHeader              │
+│  ● Title                │
+│  Description (muted)    │
+├─────────────────────────┤
+│ CardFooter              │
+│  [Av] Assignee   2m ago │
+└─────────────────────────┘
+```
+
+### Implementation
+
+- Use shadcn `Card` component as wrapper (make clickable)
+- `CardHeader` containing:
+  - Status dot (8px, colored from `TASK_STATUS_COLORS`)
+  - `CardTitle` for task title
+  - `CardDescription` for task description (if present)
+- `CardFooter` containing:
+  - `AgentAvatar` + assignee name (or "Unassigned")
+  - `RelativeTime` timestamp, right-aligned
+
 ## Kanban Board
 
 ### Changes
@@ -206,9 +232,10 @@ Show recent activity with consistent styling matching agents column.
 3. `src/components/layout/header.tsx` - Redesign with new layout
 4. `src/pages/tasks.tsx` - Three-column layout, remove StatsRow/ActionRow
 5. `src/components/tasks/kanban-column.tsx` - Add background colors, remove separators
-6. `src/components/activity/activity-timeline.tsx` - Restyle with cards and avatars
-7. New: `src/components/agents/agent-card.tsx` - Agent card component
-8. New: `src/components/agents/agents-column.tsx` - Agents sidebar
+6. `src/components/tasks/task-card.tsx` - Refactor to use shadcn Card components
+7. `src/components/activity/activity-timeline.tsx` - Restyle with cards and avatars
+8. New: `src/components/agents/agent-card.tsx` - Agent card component
+9. New: `src/components/agents/agents-column.tsx` - Agents sidebar
 
 ## Files to Remove/Deprecate
 
