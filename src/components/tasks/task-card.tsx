@@ -1,16 +1,10 @@
 // src/components/tasks/task-card.tsx
-import type { Task, TaskStatus } from "@/lib/types";
+import type { Task } from "@/lib/types";
 import { AgentAvatar } from "@/components/shared/agent-avatar";
 import { RelativeTime } from "@/components/shared/relative-time";
-import { cn } from "@/lib/utils";
-
-const statusDotColors: Record<TaskStatus, string> = {
-  inbox: "bg-blue-500",
-  assigned: "bg-blue-500",
-  in_progress: "bg-blue-500",
-  review: "bg-yellow-500",
-  done: "bg-green-500",
-};
+import { StatusDot } from "@/components/shared/status-dot";
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { TASK_STATUS_COLORS } from "@/lib/constants";
 
 interface TaskCardProps {
   task: Task;
@@ -21,30 +15,23 @@ export function TaskCard({ task, onClick }: TaskCardProps) {
   const assignee = task.assignees?.[0];
 
   return (
-    <button
+    <Card
+      size="sm"
+      className="cursor-pointer hover:bg-muted/50 transition-colors"
       onClick={onClick}
-      className="w-full text-left rounded-lg border border-border bg-card p-3 hover:bg-muted/50 transition-colors"
     >
-      {/* Title with status dot */}
-      <div className="flex items-start gap-2">
-        <span
-          className={cn(
-            "mt-1.5 size-2 rounded-full shrink-0",
-            statusDotColors[task.status]
+      <CardHeader className="flex-row items-start gap-2">
+        <StatusDot color={TASK_STATUS_COLORS[task.status]} className="mt-1" />
+        <div className="flex flex-col gap-1 min-w-0">
+          <CardTitle className="line-clamp-2">{task.title}</CardTitle>
+          {task.description && (
+            <CardDescription className="line-clamp-2">
+              {task.description}
+            </CardDescription>
           )}
-        />
-        <h3 className="font-medium text-sm line-clamp-2">{task.title}</h3>
-      </div>
-
-      {/* Description */}
-      {task.description && (
-        <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2 ml-4">
-          {task.description}
-        </p>
-      )}
-
-      {/* Footer: Agent + Time */}
-      <div className="mt-3 flex items-center justify-between ml-4">
+        </div>
+      </CardHeader>
+      <CardFooter className="justify-between">
         {assignee ? (
           <div className="flex items-center gap-1.5">
             <AgentAvatar
@@ -61,7 +48,7 @@ export function TaskCard({ task, onClick }: TaskCardProps) {
           date={task.updatedAt}
           className="text-xs text-muted-foreground"
         />
-      </div>
-    </button>
+      </CardFooter>
+    </Card>
   );
 }
