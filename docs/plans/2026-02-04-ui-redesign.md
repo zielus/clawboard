@@ -141,6 +141,28 @@ Display all agents with their current status. No filtering behavior (display onl
 - Status label: "Idle", "Active", "Blocked"
 - Scrollable container
 
+## StatusDot Component
+
+### Purpose
+
+Reusable colored dot for status indicators across the app (task cards, agent cards, column headers, activity items).
+
+### Interface
+
+```tsx
+interface StatusDotProps {
+  color: string;  // CSS variable like 'var(--status-in-progress)'
+  size?: 'sm' | 'md';  // sm=6px, md=8px (default)
+}
+```
+
+### Usage
+
+```tsx
+<StatusDot color={TASK_STATUS_COLORS.in_progress} />
+<StatusDot color={AGENT_STATUS_COLORS.active} size="sm" />
+```
+
 ## Task Card
 
 ### Layout
@@ -234,8 +256,9 @@ Show recent activity with consistent styling matching agents column.
 5. `src/components/tasks/kanban-column.tsx` - Add background colors, remove separators
 6. `src/components/tasks/task-card.tsx` - Refactor to use shadcn Card components
 7. `src/components/activity/activity-timeline.tsx` - Restyle with cards and avatars
-8. New: `src/components/agents/agent-card.tsx` - Agent card component
-9. New: `src/components/agents/agents-column.tsx` - Agents sidebar
+8. New: `src/components/shared/status-dot.tsx` - Reusable status dot component
+9. New: `src/components/agents/agent-card.tsx` - Agent card component
+10. New: `src/components/agents/agents-column.tsx` - Agents sidebar
 
 ## Files to Remove/Deprecate
 
