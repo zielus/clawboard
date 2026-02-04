@@ -1,12 +1,14 @@
 import type { Task, TaskStatus } from "@/lib/types";
 import { KanbanColumn } from "./kanban-column";
 
+type ColumnId = "backlog" | "in_progress" | "review" | "done";
+
 // Map display columns to task statuses
-const columns = [
-  { id: "backlog", label: "Backlog", statuses: ["inbox", "assigned"] as TaskStatus[] },
-  { id: "in_progress", label: "In Progress", statuses: ["in_progress"] as TaskStatus[] },
-  { id: "review", label: "Review", statuses: ["review"] as TaskStatus[] },
-  { id: "done", label: "Done", statuses: ["done"] as TaskStatus[] },
+const columns: { id: ColumnId; label: string; statuses: TaskStatus[] }[] = [
+  { id: "backlog", label: "Backlog", statuses: ["inbox", "assigned"] },
+  { id: "in_progress", label: "In Progress", statuses: ["in_progress"] },
+  { id: "review", label: "Review", statuses: ["review"] },
+  { id: "done", label: "Done", statuses: ["done"] },
 ];
 
 interface KanbanBoardProps {
