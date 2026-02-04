@@ -2,18 +2,14 @@
 import { Plus } from "lucide-react";
 import type { Task } from "@/lib/types";
 import { TaskCard } from "./task-card";
+import { StatusDot } from "@/components/shared/status-dot";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { TASK_STATUS_COLORS, COLUMN_BACKGROUNDS } from "@/lib/constants";
 
-const statusDotColors: Record<string, string> = {
-  backlog: "bg-blue-500",
-  in_progress: "bg-blue-500",
-  review: "bg-yellow-500",
-  done: "bg-green-500",
-};
+type ColumnId = "backlog" | "in_progress" | "review" | "done";
 
 interface KanbanColumnProps {
-  id: string;
+  id: ColumnId;
   label: string;
   tasks: Task[];
   onTaskClick?: (task: Task) => void;
@@ -27,12 +23,20 @@ export function KanbanColumn({
   onTaskClick,
   onAddTask,
 }: KanbanColumnProps) {
+  // Map column id to status color
+  const dotColor = id === "backlog"
+    ? TASK_STATUS_COLORS.inbox
+    : TASK_STATUS_COLORS[id as keyof typeof TASK_STATUS_COLORS];
+
   return (
-    <div className="flex flex-col min-w-[280px] max-w-[320px]">
+    <div
+      className="flex flex-col min-w-[280px] max-w-[320px] rounded-lg p-2"
+      style={{ backgroundColor: COLUMN_BACKGROUNDS[id] }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between px-1 py-2">
         <div className="flex items-center gap-2">
-          <span className={cn("size-2 rounded-full", statusDotColors[id])} />
+          <StatusDot color={dotColor} />
           <span className="font-medium text-sm">{label}</span>
           <span className="text-sm text-muted-foreground">{tasks.length}</span>
         </div>

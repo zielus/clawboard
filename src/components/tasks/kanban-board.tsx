@@ -17,7 +17,7 @@ interface KanbanBoardProps {
 
 export function KanbanBoard({ tasks, onTaskClick, onAddTask }: KanbanBoardProps) {
   return (
-    <div className="flex gap-4 overflow-x-auto p-4 flex-1">
+    <div className="flex gap-3 overflow-x-auto p-4 flex-1">
       {columns.map((column) => {
         const columnTasks = tasks.filter((t) =>
           column.statuses.includes(t.status)
