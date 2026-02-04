@@ -27,3 +27,6 @@ dist-ssr
 db/*.db
 db/*.db-shm
 db/*.db-wal
+
+# Worktrees
+.worktrees
