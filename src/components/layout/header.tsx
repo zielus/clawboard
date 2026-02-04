@@ -1,5 +1,5 @@
 // src/components/layout/header.tsx
-import { LayoutGrid, RefreshCw, Pause, Play } from "lucide-react";
+import { RefreshCw, Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export function Header({ onRefresh, isPaused = false, onTogglePause }: HeaderPro
       {/* Left: Logo + Nav */}
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2">
-          <LayoutGrid className="size-5 text-primary" />
+          <img src="/logo-no-bg.png" alt="Mission Control" className="size-6" />
           <span className="font-semibold">Mission Control</span>
         </div>
 
