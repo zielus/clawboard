@@ -11,6 +11,72 @@ pnpm lint         # Run ESLint
 pnpm preview      # Preview production build
 ```
 
+## CLI Commands
+
+The `clawboard` CLI provides CRUD operations for all entities. General pattern:
+
+```bash
+clawboard <entity>:<action> '<json>'
+```
+
+### Available Commands
+
+**Agents**
+```bash
+clawboard agents:create '{"name": "Agent Name", "type": "human|ai", "status": "active"}'
+clawboard agents:list
+clawboard agents:update '{"id": "...", "status": "inactive"}'
+clawboard agents:delete '{"id": "..."}'
+```
+
+**Tasks**
+```bash
+clawboard tasks:create '{"title": "...", "status": "pending", "priority": "medium"}'
+clawboard tasks:list
+clawboard tasks:update '{"id": "...", "status": "in_progress"}'
+clawboard tasks:assign '{"taskId": "...", "agentId": "..."}'
+clawboard tasks:unassign '{"taskId": "...", "agentId": "..."}'
+clawboard tasks:delete '{"id": "..."}'
+```
+
+**Messages**
+```bash
+clawboard messages:create '{"taskId": "...", "agentId": "...", "content": "..."}'
+clawboard messages:list '{"taskId": "..."}'
+clawboard messages:attach '{"messageId": "...", "documentId": "..."}'
+```
+
+**Documents**
+```bash
+clawboard documents:create '{"name": "...", "mimeType": "...", "path": "..."}'
+clawboard documents:list
+clawboard documents:delete '{"id": "..."}'
+```
+
+**Audits**
+```bash
+clawboard audits:create '{"entityType": "...", "entityId": "...", "action": "...", "agentId": "..."}'
+clawboard audits:list '{"entityType": "...", "entityId": "..."}'
+```
+
+**Activities**
+```bash
+clawboard activities:create '{"agentId": "...", "activityType": "...", "description": "..."}'
+clawboard activities:list '{"agentId": "..."}'
+```
+
+**Notifications**
+```bash
+clawboard notifications:create '{"agentId": "...", "type": "...", "title": "...", "message": "..."}'
+clawboard notifications:list '{"agentId": "..."}'
+clawboard notifications:deliver '{"id": "..."}'
+```
+
+**Setup**
+```bash
+clawboard setup    # Initialize database schema
+```
+
 ## Adding shadcn/ui Components
 
 ```bash
@@ -29,15 +95,29 @@ Components are installed to `src/components/ui/`. The project uses the `radix-ve
 ## Project Structure
 
 ```
+bin/
+├── clawboard           # Shell wrapper
+└── clawboard.ts        # CLI tool
+db/
+└── schema.sql          # Database schema
 src/
 ├── components/
-│   └── ui/        # shadcn/ui components
+│   └── ui/             # shadcn/ui components
 ├── lib/
-│   └── utils.ts   # cn() utility for className merging
-├── App.tsx        # Root component
-├── main.tsx       # Entry point
-└── index.css      # Tailwind imports and CSS variables (theme)
+│   ├── db.ts           # Database connection
+│   ├── types.ts        # Zod schemas
+│   └── utils.ts        # cn() utility for className merging
+├── App.tsx             # Root component
+├── main.tsx            # Entry point
+└── index.css           # Tailwind imports and CSS variables (theme)
 ```
+
+## Database
+
+- **SQLite** with better-sqlite3
+- **7 main tables**: agents, tasks, messages, documents, audits, activities, notifications
+- **2 junction tables**: task_agents, message_documents
+- Schema defined in `db/schema.sql`
 
 ## Styling
 
