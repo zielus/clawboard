@@ -1,19 +1,21 @@
 // src/components/layout/theme-toggle.tsx
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
+function getInitialTheme(): boolean {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const stored = localStorage.getItem("theme");
+  return stored === "dark" || (!stored && prefersDark);
+}
 
-  useEffect(() => {
-    // Check initial preference
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const stored = localStorage.getItem("theme");
-    const initial = stored === "dark" || (!stored && prefersDark);
-    setIsDark(initial);
-    document.documentElement.classList.toggle("dark", initial);
-  }, []);
+export function ThemeToggle() {
+  const [isDark, setIsDark] = useState(getInitialTheme);
+
+  useLayoutEffect(() => {
+    // Sync DOM with state on mount and when isDark changes
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
 
   const toggle = () => {
     const next = !isDark;

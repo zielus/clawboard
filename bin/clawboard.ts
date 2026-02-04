@@ -170,7 +170,8 @@ function tasksCreate(args: Args): void {
 }
 
 function tasksUpdate(args: Args): void {
-  const { id, assigneeIds, ...updates } = args as { id: string; assigneeIds?: string[]; [key: string]: unknown };
+  const { id, ...updates } = args as { id: string; assigneeIds?: string[]; [key: string]: unknown };
+  delete updates.assigneeIds; // Exclude assigneeIds from SQL update fields
 
   if (!id) {
     console.error('Error: id is required');
