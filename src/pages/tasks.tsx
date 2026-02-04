@@ -1,8 +1,7 @@
 // src/pages/tasks.tsx
 import { useState, useMemo } from "react";
 import { Header } from "@/components/layout/header";
-import { StatsRow } from "@/components/tasks/stats-row";
-import { ActionRow } from "@/components/tasks/action-row";
+import { AgentsColumn } from "@/components/agents/agents-column";
 import { KanbanBoard } from "@/components/tasks/kanban-board";
 import { ActivityTimeline } from "@/components/activity/activity-timeline";
 import { TaskModal } from "@/components/tasks/task-modal";
@@ -12,18 +11,9 @@ import type { Task, TaskStats, TaskStatus } from "@/lib/types";
 
 export function TasksPage() {
   const [isPaused, setIsPaused] = useState(false);
-  const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [tasks, setTasks] = useState(mockTasks);
-
-  // Filter tasks by selected agent
-  const filteredTasks = useMemo(() => {
-    if (!selectedAgentId) return tasks;
-    return tasks.filter((t) =>
-      t.assignees?.some((a) => a.id === selectedAgentId)
-    );
-  }, [tasks, selectedAgentId]);
 
   // Calculate stats
   const stats: TaskStats = useMemo(() => {
@@ -64,21 +54,16 @@ export function TasksPage() {
   return (
     <div className="flex flex-col h-screen bg-background">
       <Header
+        stats={stats}
         isPaused={isPaused}
         onTogglePause={() => setIsPaused(!isPaused)}
         onRefresh={handleRefresh}
       />
-      <StatsRow stats={stats} />
-      <ActionRow
-        agents={mockAgents}
-        selectedAgentId={selectedAgentId}
-        onAgentSelect={setSelectedAgentId}
-        onNewTask={() => setIsModalOpen(true)}
-      />
 
       <div className="flex flex-1 overflow-hidden">
+        <AgentsColumn agents={mockAgents} />
         <KanbanBoard
-          tasks={filteredTasks}
+          tasks={tasks}
           onTaskClick={setSelectedTask}
           onAddTask={(column) => {
             console.log("Add task to column:", column);
