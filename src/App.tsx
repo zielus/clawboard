@@ -1,7 +1,8 @@
-import { ComponentExample } from "@/components/component-example";
+// src/App.tsx
+import { TasksPage } from "@/pages/tasks";
 
 export function App() {
-return <ComponentExample />;
+  return <TasksPage />;
 }
 
 export default App;
