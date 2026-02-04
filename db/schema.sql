@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS agents (
   name            TEXT NOT NULL,
   role            TEXT,
   badge           TEXT,
+  avatar          TEXT,
   status          TEXT DEFAULT 'idle' CHECK(status IN ('idle', 'active', 'blocked')),
   current_task_id TEXT,
   session_key     TEXT,
