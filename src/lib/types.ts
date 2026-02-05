@@ -2,15 +2,9 @@
 
 export type AgentStatus = "idle" | "active" | "blocked";
 
-export type TaskStatus = "inbox" | "assigned" | "in_progress" | "review" | "done";
+export type TaskStatus = "backlog" | "in_progress" | "review" | "done";
 
-export type ActivityType =
-  | "task_created"
-  | "task_updated"
-  | "status_changed"
-  | "message_sent"
-  | "document_created"
-  | "audit_completed";
+export type ActivityType = "created" | "moved" | "commented" | "updated";
 
 export interface Agent {
   id: string;
