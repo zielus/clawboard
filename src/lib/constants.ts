@@ -3,8 +3,7 @@
 import type { TaskStatus, AgentStatus } from "./types";
 
 export const TASK_STATUS_COLORS: Record<TaskStatus, string> = {
-  inbox: "var(--status-backlog)",
-  assigned: "var(--status-backlog)",
+  backlog: "var(--status-backlog)",
   in_progress: "var(--status-in-progress)",
   review: "var(--status-review)",
   done: "var(--status-done)",
@@ -24,8 +23,7 @@ export const COLUMN_BACKGROUNDS = {
 } as const;
 
 export const TASK_STATUS_LABELS: Record<TaskStatus, string> = {
-  inbox: "Backlog",
-  assigned: "Backlog",
+  backlog: "Backlog",
   in_progress: "In Progress",
   review: "Review",
   done: "Done",

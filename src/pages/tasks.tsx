@@ -9,8 +9,11 @@ import type { Task, TaskStatus } from "@/lib/types";
 
 export function TasksPage() {
   const [isPaused, setIsPaused] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [tasks, setTasks] = useState(mockTasks);
+  const [_selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [tasks, _setTasks] = useState(mockTasks);
+  // _selectedTask and _setTasks are placeholders for future task detail view and task mutations
+  void _selectedTask;
+  void _setTasks;
 
   // Calculate stats for all 4 columns
   const stats = useMemo(() => {

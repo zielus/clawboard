@@ -31,7 +31,7 @@ export function TaskModal({
   open,
   onOpenChange,
   agents,
-  defaultStatus = "inbox",
+  defaultStatus = "backlog",
   onSubmit,
 }: TaskModalProps) {
   const [title, setTitle] = useState("");
@@ -46,7 +46,7 @@ export function TaskModal({
     // Reset form
     setTitle("");
     setDescription("");
-    setStatus("inbox");
+    setStatus("backlog");
     setAssigneeId(null);
     onOpenChange(false);
   };
@@ -87,7 +87,7 @@ export function TaskModal({
                 onChange={(e) => setStatus(e.target.value as TaskStatus)}
                 className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
               >
-                <option value="inbox">Backlog</option>
+                <option value="backlog">Backlog</option>
                 <option value="in_progress">In Progress</option>
                 <option value="review">Review</option>
                 <option value="done">Done</option>
