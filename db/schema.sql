@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS tasks (
   id          TEXT PRIMARY KEY,
   title       TEXT NOT NULL,
   description TEXT,
-  status      TEXT DEFAULT 'inbox' CHECK(status IN ('inbox', 'assigned', 'in_progress', 'review', 'done')),
+  status      TEXT DEFAULT 'backlog' CHECK(status IN ('backlog', 'in_progress', 'review', 'done')),
   created_at  TEXT DEFAULT (datetime('now')),
   updated_at  TEXT DEFAULT (datetime('now'))
 );
