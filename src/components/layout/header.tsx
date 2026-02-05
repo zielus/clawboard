@@ -1,118 +1,125 @@
-// src/components/layout/header.tsx
 import { useState } from "react";
-import { RefreshCw, Pause, Play, CheckSquare, Brain, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { ThemeToggle } from "./theme-toggle";
-import { HeaderStats } from "./header-stats";
-import { cn } from "@/lib/utils";
-import type { TaskStats } from "@/lib/types";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Rocket,
+  Pause,
+  Play,
+  RefreshCw,
+  Moon,
+  Sun,
+  ListTodo,
+  Brain,
+  FileText,
+} from "lucide-react";
 
-const navItems = [
-  { label: "Tasks", href: "/tasks", active: true, icon: CheckSquare },
-  { label: "Memory", href: "/memory", disabled: true, icon: Brain },
-  { label: "Docs", href: "/docs", disabled: true, icon: FileText },
-];
-
-interface HeaderProps {
-  stats: TaskStats;
-  onRefresh?: () => void;
-  isPaused?: boolean;
-  onTogglePause?: () => void;
+interface Stats {
+  backlog: number;
+  inProgress: number;
+  review: number;
+  done: number;
 }
 
-export function Header({ stats, onRefresh, isPaused = false, onTogglePause }: HeaderProps) {
+interface HeaderProps {
+  stats: Stats;
+  isPaused: boolean;
+  onTogglePause: () => void;
+  onRefresh: () => void;
+}
+
+export function Header({ stats, isPaused, onTogglePause, onRefresh }: HeaderProps) {
+  const [isDark, setIsDark] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
-    onRefresh?.();
+    onRefresh();
     setTimeout(() => setIsRefreshing(false), 1000);
   };
 
   return (
-    <header className="flex h-16 items-center justify-between bg-muted/50 px-4">
-      {/* Left: Logo + Nav */}
+    <header className="flex h-14 items-center justify-between border-b border-border bg-card px-4">
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2">
-          <img src="/logo-no-bg.png" alt="Mission Control" className="size-6" />
-          <span className="font-semibold">Mission Control</span>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+            <Rocket className="h-4 w-4 text-primary-foreground" />
+          </div>
+          <span className="text-lg font-semibold text-foreground">Clawboard</span>
         </div>
-
-        <nav className="flex items-center gap-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.label}
-                disabled={item.disabled}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md transition-colors",
-                  item.active
-                    ? "bg-background text-foreground font-medium shadow-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-background/50",
-                  item.disabled && "opacity-50 cursor-not-allowed pointer-events-none"
-                )}
-              >
-                <Icon className="size-4" />
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
+        <Tabs defaultValue="tasks" className="hidden md:block">
+          <TabsList className="h-8 bg-secondary">
+            <TabsTrigger value="tasks" className="gap-1.5 text-xs data-[state=active]:bg-accent">
+              <ListTodo className="h-3.5 w-3.5" />
+              Tasks
+            </TabsTrigger>
+            <TabsTrigger value="memory" className="gap-1.5 text-xs data-[state=active]:bg-accent" disabled>
+              <Brain className="h-3.5 w-3.5" />
+              Memory
+            </TabsTrigger>
+            <TabsTrigger value="docs" className="gap-1.5 text-xs data-[state=active]:bg-accent" disabled>
+              <FileText className="h-3.5 w-3.5" />
+              Docs
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
-      {/* Center: Stats */}
-      <HeaderStats stats={stats} />
+      <div className="hidden items-center gap-3 lg:flex">
+        <div className="flex items-center gap-4 rounded-lg bg-secondary/50 px-4 py-1.5">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-slate-500" />
+            <span className="text-xs text-muted-foreground">Backlog</span>
+            <span className="text-sm font-semibold text-foreground">{stats.backlog}</span>
+          </div>
+          <div className="h-4 w-px bg-border" />
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-blue-500" />
+            <span className="text-xs text-muted-foreground">In Progress</span>
+            <span className="text-sm font-semibold text-foreground">{stats.inProgress}</span>
+          </div>
+          <div className="h-4 w-px bg-border" />
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-amber-500" />
+            <span className="text-xs text-muted-foreground">Review</span>
+            <span className="text-sm font-semibold text-foreground">{stats.review}</span>
+          </div>
+          <div className="h-4 w-px bg-border" />
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="text-xs text-muted-foreground">Done</span>
+            <span className="text-sm font-semibold text-foreground">{stats.done}</span>
+          </div>
+        </div>
+      </div>
 
-      {/* Right: Controls */}
-      <div className="flex items-center gap-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onTogglePause}
-              className={cn(
-                "gap-1.5 transition-colors",
-                isPaused
-                  ? "text-amber-600 hover:text-amber-700"
-                  : "text-green-600 hover:text-green-700"
-              )}
-            >
-              {isPaused ? (
-                <>
-                  <Play className="size-4" />
-                  Resume
-                </>
-              ) : (
-                <>
-                  <Pause className="size-4" />
-                  Pause
-                </>
-              )}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            {isPaused ? "Resume agents" : "Pause agents"}
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={handleRefresh}>
-              <RefreshCw
-                className={cn(
-                  "size-4 transition-transform duration-1000",
-                  isRefreshing && "animate-spin"
-                )}
-              />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Refresh data</TooltipContent>
-        </Tooltip>
-
-        <ThemeToggle />
+      <div className="flex items-center gap-1">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          onClick={onTogglePause}
+        >
+          {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+          <span className="sr-only">{isPaused ? "Resume" : "Pause"}</span>
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          onClick={handleRefresh}
+        >
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+          <span className="sr-only">Refresh</span>
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 text-muted-foreground hover:text-foreground"
+          onClick={() => setIsDark(!isDark)}
+        >
+          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          <span className="sr-only">Toggle theme</span>
+        </Button>
       </div>
     </header>
   );
