@@ -11,10 +11,109 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { AgentAvatar } from "@/components/shared/agent-avatar";
-import { RelativeTime } from "@/components/shared/relative-time";
+import { cn } from "@/lib/utils";
 import type { Task, Agent, Message, TaskStatus } from "@/lib/types";
 import { useState } from "react";
+
+// Inlined AgentAvatar component
+interface AgentAvatarProps {
+  avatar: string | null;
+  name: string;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+function AgentAvatar({ avatar, name, size = "md", className }: AgentAvatarProps) {
+  const sizeClasses = {
+    sm: "size-5 text-xs",
+    md: "size-6 text-sm",
+    lg: "size-8 text-base",
+  };
+
+  const isEmoji = avatar && /^\p{Emoji}/u.test(avatar);
+  const isUrl = avatar && (avatar.startsWith("http://") || avatar.startsWith("https://"));
+
+  if (isUrl) {
+    return (
+      <img
+        src={avatar}
+        alt={name}
+        className={cn("rounded-full object-cover", sizeClasses[size], className)}
+      />
+    );
+  }
+
+  if (isEmoji) {
+    return (
+      <span
+        className={cn(
+          "inline-flex items-center justify-center rounded-full bg-muted",
+          sizeClasses[size],
+          className
+        )}
+        title={name}
+      >
+        {avatar}
+      </span>
+    );
+  }
+
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground font-medium",
+        sizeClasses[size],
+        className
+      )}
+      title={name}
+    >
+      {initials}
+    </span>
+  );
+}
+
+// Inlined RelativeTime component
+interface RelativeTimeProps {
+  date: string;
+  className?: string;
+}
+
+function RelativeTime({ date, className }: RelativeTimeProps) {
+  const now = new Date();
+  const then = new Date(date);
+  const diffMs = now.getTime() - then.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  let text: string;
+  if (diffMins < 1) {
+    text = "just now";
+  } else if (diffMins < 60) {
+    text = `${diffMins}m ago`;
+  } else if (diffHours < 24) {
+    text = `${diffHours}h ago`;
+  } else if (diffDays === 1) {
+    text = "yesterday";
+  } else if (diffDays < 7) {
+    text = `${diffDays}d ago`;
+  } else {
+    text = then.toLocaleDateString();
+  }
+
+  return (
+    <time dateTime={date} className={className} title={then.toLocaleString()}>
+      {text}
+    </time>
+  );
+}
 
 interface TaskDrawerProps {
   task: Task | null;
