@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTheme } from "@/components/theme-provider";
 import {
   Rocket,
   Pause,
@@ -28,7 +29,7 @@ interface HeaderProps {
 }
 
 export function Header({ stats, isPaused, onTogglePause, onRefresh }: HeaderProps) {
-  const [isDark, setIsDark] = useState(true);
+  const { theme, setTheme } = useTheme();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = () => {
@@ -115,9 +116,9 @@ export function Header({ stats, isPaused, onTogglePause, onRefresh }: HeaderProp
           variant="ghost"
           size="icon"
           className="h-8 w-8 text-muted-foreground hover:text-foreground"
-          onClick={() => setIsDark(!isDark)}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
-          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </div>
