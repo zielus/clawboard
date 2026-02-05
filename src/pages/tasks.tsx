@@ -5,7 +5,7 @@ import { AgentsColumn } from "@/components/agents/agents-column";
 import { KanbanBoard } from "@/components/tasks/kanban-board";
 import { ActivityTimeline } from "@/components/activity/activity-timeline";
 import { mockAgents, mockTasks, mockActivities } from "@/lib/mock-data";
-import type { Task, TaskStatus } from "@/lib/types";
+import type { Task } from "@/lib/types";
 
 export function TasksPage() {
   const [isPaused, setIsPaused] = useState(false);
@@ -28,8 +28,8 @@ export function TasksPage() {
     console.log("Refreshing data...");
   };
 
-  const handleAddTask = (status: TaskStatus) => {
-    console.log("Add task to column:", status);
+  const handleAddTask = () => {
+    console.log("Add new task");
     // TODO: Open task modal
   };
 
@@ -40,6 +40,7 @@ export function TasksPage() {
         isPaused={isPaused}
         onTogglePause={() => setIsPaused(!isPaused)}
         onRefresh={handleRefresh}
+        onAddTask={handleAddTask}
       />
 
       <div className="flex flex-1 overflow-hidden">
@@ -47,7 +48,6 @@ export function TasksPage() {
         <KanbanBoard
           tasks={tasks}
           onTaskClick={setSelectedTask}
-          onAddTask={handleAddTask}
         />
         <ActivityTimeline activities={mockActivities} />
       </div>

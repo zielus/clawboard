@@ -1,14 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, GripVertical } from "lucide-react";
+import { GripVertical } from "lucide-react";
 import type { Task, TaskStatus } from "@/lib/types";
 
 interface KanbanBoardProps {
   tasks: Task[];
   onTaskClick: (task: Task) => void;
-  onAddTask: (status: TaskStatus) => void;
 }
 
 const columns: { id: TaskStatus; title: string; color: string }[] = [
@@ -35,13 +33,13 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
 
   return (
     <Card
-      className="group cursor-grab py-0 gap-0 rounded-lg shadow-none ring-0 border border-border bg-card transition-all hover:border-primary/30 hover:bg-accent/50 active:cursor-grabbing"
+      className="group cursor-grab rounded-lg border-0 bg-card/80 shadow-sm ring-1 ring-border/50 backdrop-blur-sm transition-all hover:bg-card hover:shadow-md hover:ring-border active:cursor-grabbing"
       onClick={onClick}
     >
-      <CardContent className="p-3 px-3">
+      <CardContent className="p-3">
         <div className="mb-2 flex items-start justify-between gap-2">
           <h4 className="text-sm font-medium leading-tight text-foreground">{task.title}</h4>
-          <GripVertical className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          <GripVertical className="h-4 w-4 shrink-0 text-muted-foreground/50 opacity-0 transition-opacity group-hover:opacity-100" />
         </div>
         {task.description && (
           <p className="mb-3 line-clamp-2 text-xs text-muted-foreground">{task.description}</p>
@@ -76,42 +74,32 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
   );
 }
 
-export function KanbanBoard({ tasks, onTaskClick, onAddTask }: KanbanBoardProps) {
+export function KanbanBoard({ tasks, onTaskClick }: KanbanBoardProps) {
   const getTasksByStatus = (status: TaskStatus) => tasks.filter((t) => t.status === status);
 
   return (
-    <div className="flex flex-1 flex-col bg-background">
-      <div className="flex flex-1 gap-4 overflow-x-auto p-4">
+    <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 gap-6 overflow-x-auto p-4">
         {columns.map((column) => {
           const columnTasks = getTasksByStatus(column.id);
           return (
             <div
               key={column.id}
-              className="flex h-full w-72 shrink-0 flex-col rounded-lg bg-secondary/30"
+              className="flex h-full w-72 shrink-0 flex-col"
             >
-              <div className="flex items-center justify-between border-b border-border px-3 py-2.5">
-                <div className="flex items-center gap-2">
-                  <span className={`h-2 w-2 rounded-full ${column.color}`} />
-                  <h3 className="text-sm font-medium text-foreground">{column.title}</h3>
-                  <span className="rounded-md bg-muted px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
-                    {columnTasks.length}
-                  </span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6 text-muted-foreground hover:text-foreground"
-                  onClick={() => onAddTask(column.id)}
-                >
-                  <Plus className="h-4 w-4" />
-                  <span className="sr-only">Add task to {column.title}</span>
-                </Button>
+              <div className="flex items-center gap-2 px-1 pb-3">
+                <span className={`h-2 w-2 rounded-full ${column.color}`} />
+                <h3 className="text-sm font-medium text-foreground">{column.title}</h3>
               </div>
-              <ScrollArea className="flex-1 p-2">
-                <div className="space-y-2">
-                  {columnTasks.map((task) => (
-                    <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
-                  ))}
+              <ScrollArea className="flex-1">
+                <div className="space-y-3 px-1">
+                  {columnTasks.length > 0 ? (
+                    columnTasks.map((task) => (
+                      <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
+                    ))
+                  ) : (
+                    <p className="py-8 text-center text-xs text-muted-foreground/60">No tasks</p>
+                  )}
                 </div>
               </ScrollArea>
             </div>

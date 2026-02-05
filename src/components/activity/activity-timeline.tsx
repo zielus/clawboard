@@ -28,22 +28,21 @@ function getRelativeTime(dateString: string): string {
   const diffMins = Math.floor(diffMs / 60000);
 
   if (diffMins < 1) return "Just now";
-  if (diffMins < 60) return `${diffMins} min ago`;
+  if (diffMins < 60) return `${diffMins}m ago`;
   const diffHours = Math.floor(diffMins / 60);
-  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
   const diffDays = Math.floor(diffHours / 24);
-  return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+  return `${diffDays}d ago`;
 }
 
 export function ActivityTimeline({ activities }: ActivityTimelineProps) {
   return (
-    <div className="hidden w-72 shrink-0 flex-col border-l border-border bg-card xl:flex">
-      <div className="border-b border-border p-4">
-        <h2 className="text-sm font-semibold text-foreground">Activity</h2>
-        <p className="text-xs text-muted-foreground">Recent actions</p>
+    <div className="hidden w-80 shrink-0 flex-col xl:flex">
+      <div className="px-4 py-3">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Activity</h2>
       </div>
       <ScrollArea className="flex-1">
-        <div className="space-y-1 p-2">
+        <div className="space-y-1 px-3 pb-4">
           {activities.map((activity) => {
             const config = actionConfig[activity.type];
             const Icon = config.icon;
@@ -53,20 +52,20 @@ export function ActivityTimeline({ activities }: ActivityTimelineProps) {
             return (
               <div
                 key={activity.id}
-                className="group rounded-lg p-3 transition-colors hover:bg-accent"
+                className="group rounded-lg px-2 py-2.5 transition-colors hover:bg-accent/50"
               >
                 <div className="flex items-start gap-3">
-                  <Avatar className="h-7 w-7">
+                  <Avatar className="h-6 w-6 shrink-0">
                     <AvatarImage
                       src={activity.agent?.avatar || undefined}
                       alt={agentName}
                     />
-                    <AvatarFallback className="text-[10px]">
+                    <AvatarFallback className="text-[9px]">
                       {getInitials(agentName)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs leading-relaxed">
+                    <p className="text-sm leading-relaxed">
                       <span className="font-medium text-foreground">
                         {agentName.split(" ")[0]}
                       </span>{" "}
@@ -77,9 +76,9 @@ export function ActivityTimeline({ activities }: ActivityTimelineProps) {
                       <span className="font-medium text-foreground">{taskTitle}</span>
                     </p>
                     {activity.message && activity.type === "moved" && (
-                      <p className="mt-0.5 text-[10px] text-muted-foreground">{activity.message}</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{activity.message}</p>
                     )}
-                    <p className="mt-1 text-[10px] text-muted-foreground">
+                    <p className="mt-1 text-[11px] text-muted-foreground/70">
                       {getRelativeTime(activity.createdAt)}
                     </p>
                   </div>
