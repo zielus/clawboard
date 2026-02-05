@@ -35,10 +35,10 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
 
   return (
     <Card
-      className="group cursor-grab border-border bg-card transition-all hover:border-primary/30 hover:bg-accent/50 active:cursor-grabbing"
+      className="group cursor-grab py-0 gap-0 rounded-lg shadow-none ring-0 border border-border bg-card transition-all hover:border-primary/30 hover:bg-accent/50 active:cursor-grabbing"
       onClick={onClick}
     >
-      <CardContent className="p-3">
+      <CardContent className="p-3 px-3">
         <div className="mb-2 flex items-start justify-between gap-2">
           <h4 className="text-sm font-medium leading-tight text-foreground">{task.title}</h4>
           <GripVertical className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
