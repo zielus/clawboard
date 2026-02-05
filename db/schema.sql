@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS audits (
 -- ACTIVITIES
 CREATE TABLE IF NOT EXISTS activities (
   id         TEXT PRIMARY KEY,
-  type       TEXT NOT NULL CHECK(type IN ('task_created', 'task_updated', 'status_changed', 'message_sent', 'document_created', 'audit_completed')),
+  type       TEXT NOT NULL CHECK(type IN ('created', 'moved', 'commented', 'updated')),
   agent_id   TEXT REFERENCES agents(id),
   task_id    TEXT REFERENCES tasks(id) ON DELETE SET NULL,
   message    TEXT NOT NULL,
