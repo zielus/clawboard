@@ -20,8 +20,14 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      // Allow exporting variant functions alongside components (shadcn/ui pattern)
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    },
+  },
+  {
+    // Disable react-refresh rule for shadcn/ui components (they export variants by design)
+    files: ['src/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 ])
