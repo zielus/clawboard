@@ -37,7 +37,7 @@ function getRelativeTime(dateString: string): string {
 
 export function ActivityTimeline({ activities }: ActivityTimelineProps) {
   return (
-    <div className="hidden w-80 shrink-0 flex-col xl:flex">
+    <div className="hidden w-80 shrink-0 flex-col border-l border-border/40 bg-card/30 xl:flex">
       <div className="px-4 py-3">
         <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Activity</h2>
       </div>
