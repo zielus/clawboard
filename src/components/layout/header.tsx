@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/components/use-theme";
 import {
   Rocket,
   RefreshCw,
