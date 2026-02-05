@@ -45,15 +45,26 @@ export function Header({ isPaused, onTogglePause, onRefresh, onAddTask }: Header
 
         <Tabs defaultValue="tasks" className="hidden md:block">
           <TabsList className="h-8 gap-1 bg-transparent p-0">
-            <TabsTrigger value="tasks" className="gap-1.5 h-8 rounded-md px-3 text-sm text-muted-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground">
+            <TabsTrigger
+              value="tasks"
+              className="gap-1.5 h-8 rounded-md px-3 text-sm text-muted-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground"
+            >
               <ListTodo className="h-4 w-4" />
               Tasks
             </TabsTrigger>
-            <TabsTrigger value="memory" className="gap-1.5 h-8 rounded-md px-3 text-sm text-muted-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground" disabled>
+            <TabsTrigger
+              value="memory"
+              className="gap-1.5 h-8 rounded-md px-3 text-sm text-muted-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground"
+              disabled
+            >
               <Brain className="h-4 w-4" />
               Memory
             </TabsTrigger>
-            <TabsTrigger value="docs" className="gap-1.5 h-8 rounded-md px-3 text-sm text-muted-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground" disabled>
+            <TabsTrigger
+              value="docs"
+              className="gap-1.5 h-8 rounded-md px-3 text-sm text-muted-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground"
+              disabled
+            >
               <FileText className="h-4 w-4" />
               Docs
             </TabsTrigger>
@@ -63,11 +74,7 @@ export function Header({ isPaused, onTogglePause, onRefresh, onAddTask }: Header
 
       {/* Right: Actions */}
       <div className="flex items-center gap-2">
-        <Button
-          size="sm"
-          className="gap-1.5 h-8 px-3"
-          onClick={onAddTask}
-        >
+        <Button size="sm" className="gap-1.5 h-8 px-3" onClick={onAddTask}>
           <Plus className="h-4 w-4" />
           <span className="hidden sm:inline">New Task</span>
         </Button>

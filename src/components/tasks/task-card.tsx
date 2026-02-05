@@ -25,29 +25,20 @@ export function TaskCard({ task, onClick }: TaskCardProps) {
         <div className="flex flex-col gap-1 min-w-0">
           <CardTitle className="line-clamp-2">{task.title}</CardTitle>
           {task.description && (
-            <CardDescription className="line-clamp-2">
-              {task.description}
-            </CardDescription>
+            <CardDescription className="line-clamp-2">{task.description}</CardDescription>
           )}
         </div>
       </CardHeader>
       <CardFooter className="justify-between">
         {assignee ? (
           <div className="flex items-center gap-1.5">
-            <AgentAvatar
-              avatar={assignee.avatar}
-              name={assignee.name}
-              size="sm"
-            />
+            <AgentAvatar avatar={assignee.avatar} name={assignee.name} size="sm" />
             <span className="text-xs text-primary">{assignee.name}</span>
           </div>
         ) : (
           <span className="text-xs text-muted-foreground">Unassigned</span>
         )}
-        <RelativeTime
-          date={task.updatedAt}
-          className="text-xs text-muted-foreground"
-        />
+        <RelativeTime date={task.updatedAt} className="text-xs text-muted-foreground" />
       </CardFooter>
     </Card>
   );

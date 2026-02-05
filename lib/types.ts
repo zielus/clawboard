@@ -1,27 +1,27 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // === ENUMS ===
 
-export const AgentStatus = z.enum(['idle', 'active', 'blocked']);
+export const AgentStatus = z.enum(["idle", "active", "blocked"]);
 export type AgentStatus = z.infer<typeof AgentStatus>;
 
-export const TaskStatus = z.enum(['inbox', 'assigned', 'in_progress', 'review', 'done']);
+export const TaskStatus = z.enum(["inbox", "assigned", "in_progress", "review", "done"]);
 export type TaskStatus = z.infer<typeof TaskStatus>;
 
-export const ThreatLevel = z.enum(['safe', 'warning', 'critical']);
+export const ThreatLevel = z.enum(["safe", "warning", "critical"]);
 export type ThreatLevel = z.infer<typeof ThreatLevel>;
 
 export const ActivityType = z.enum([
-  'task_created',
-  'task_updated',
-  'status_changed',
-  'message_sent',
-  'document_created',
-  'audit_completed',
+  "task_created",
+  "task_updated",
+  "status_changed",
+  "message_sent",
+  "document_created",
+  "audit_completed",
 ]);
 export type ActivityType = z.infer<typeof ActivityType>;
 
-export const DocumentType = z.enum(['deliverable', 'research', 'protocol']);
+export const DocumentType = z.enum(["deliverable", "research", "protocol"]);
 export type DocumentType = z.infer<typeof DocumentType>;
 
 // === AGENTS ===
@@ -43,7 +43,7 @@ export const CreateAgentInput = z.object({
   name: z.string().min(1),
   role: z.string().optional(),
   badge: z.string().optional(),
-  status: AgentStatus.optional().default('idle'),
+  status: AgentStatus.optional().default("idle"),
   sessionKey: z.string().optional(),
 });
 export type CreateAgentInput = z.infer<typeof CreateAgentInput>;
@@ -74,7 +74,7 @@ export type Task = z.infer<typeof TaskSchema>;
 export const CreateTaskInput = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
-  status: TaskStatus.optional().default('inbox'),
+  status: TaskStatus.optional().default("inbox"),
   assigneeIds: z.array(z.string()).optional(),
 });
 export type CreateTaskInput = z.infer<typeof CreateTaskInput>;

@@ -6,9 +6,5 @@ interface StatusDotProps {
 }
 
 export function StatusDot({ color, className }: StatusDotProps) {
-  return (
-    <span
-      className={cn("h-2 w-2 shrink-0 rounded-full", color, className)}
-    />
-  );
+  return <span className={cn("h-2 w-2 shrink-0 rounded-full", color, className)} />;
 }

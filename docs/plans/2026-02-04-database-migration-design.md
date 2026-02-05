@@ -140,12 +140,14 @@ README.md                 # Project overview
 ## Dependencies
 
 **Production:**
+
 - `better-sqlite3` — SQLite driver
 - `zod` — validation
 - `uuid` — ID generation
 - `hono`, `@hono/node-server` — ready for routes later
 
 **Dev:**
+
 - `@types/better-sqlite3`, `@types/uuid` — type definitions
 - `tsx` — TypeScript execution
 - `concurrently` — dev convenience

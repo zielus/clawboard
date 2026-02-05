@@ -13,6 +13,7 @@
 ## Task 1: Add CSS Variables for Status Colors
 
 **Files:**
+
 - Modify: `src/index.css:8-41` (add variables to `:root`)
 - Modify: `src/index.css:43-75` (add variables to `.dark`)
 
@@ -21,17 +22,17 @@
 Add after line 31 (after `--radius`), before the sidebar variables:
 
 ```css
-    --status-backlog: oklch(0.55 0.01 260);
-    --status-in-progress: oklch(0.65 0.20 250);
-    --status-review: oklch(0.75 0.15 85);
-    --status-done: oklch(0.65 0.17 145);
-    --agent-idle: oklch(0.55 0.01 260);
-    --agent-active: oklch(0.65 0.17 145);
-    --agent-blocked: oklch(0.60 0.20 25);
-    --column-bg-backlog: oklch(0.55 0.01 260 / 5%);
-    --column-bg-in-progress: oklch(0.65 0.20 250 / 5%);
-    --column-bg-review: oklch(0.75 0.15 85 / 5%);
-    --column-bg-done: oklch(0.65 0.17 145 / 5%);
+--status-backlog: oklch(0.55 0.01 260);
+--status-in-progress: oklch(0.65 0.2 250);
+--status-review: oklch(0.75 0.15 85);
+--status-done: oklch(0.65 0.17 145);
+--agent-idle: oklch(0.55 0.01 260);
+--agent-active: oklch(0.65 0.17 145);
+--agent-blocked: oklch(0.6 0.2 25);
+--column-bg-backlog: oklch(0.55 0.01 260 / 5%);
+--column-bg-in-progress: oklch(0.65 0.2 250 / 5%);
+--column-bg-review: oklch(0.75 0.15 85 / 5%);
+--column-bg-done: oklch(0.65 0.17 145 / 5%);
 ```
 
 **Step 2: Add status color variables to `.dark`**
@@ -39,17 +40,17 @@ Add after line 31 (after `--radius`), before the sidebar variables:
 Add after `--chart-5` in `.dark` section:
 
 ```css
-    --status-backlog: oklch(0.60 0.01 260);
-    --status-in-progress: oklch(0.70 0.18 250);
-    --status-review: oklch(0.80 0.13 85);
-    --status-done: oklch(0.70 0.15 145);
-    --agent-idle: oklch(0.60 0.01 260);
-    --agent-active: oklch(0.70 0.15 145);
-    --agent-blocked: oklch(0.65 0.18 25);
-    --column-bg-backlog: oklch(0.60 0.01 260 / 8%);
-    --column-bg-in-progress: oklch(0.70 0.18 250 / 8%);
-    --column-bg-review: oklch(0.80 0.13 85 / 8%);
-    --column-bg-done: oklch(0.70 0.15 145 / 8%);
+--status-backlog: oklch(0.6 0.01 260);
+--status-in-progress: oklch(0.7 0.18 250);
+--status-review: oklch(0.8 0.13 85);
+--status-done: oklch(0.7 0.15 145);
+--agent-idle: oklch(0.6 0.01 260);
+--agent-active: oklch(0.7 0.15 145);
+--agent-blocked: oklch(0.65 0.18 25);
+--column-bg-backlog: oklch(0.6 0.01 260 / 8%);
+--column-bg-in-progress: oklch(0.7 0.18 250 / 8%);
+--column-bg-review: oklch(0.8 0.13 85 / 8%);
+--column-bg-done: oklch(0.7 0.15 145 / 8%);
 ```
 
 **Step 3: Run dev server to verify no CSS errors**
@@ -69,6 +70,7 @@ git commit -m "feat: add CSS variables for status colors and column backgrounds"
 ## Task 2: Create Constants File
 
 **Files:**
+
 - Create: `src/lib/constants.ts`
 
 **Step 1: Create constants file with color mappings**
@@ -131,6 +133,7 @@ git commit -m "feat: add color constants for task and agent statuses"
 ## Task 3: Create StatusDot Component
 
 **Files:**
+
 - Create: `src/components/shared/status-dot.tsx`
 
 **Step 1: Create the StatusDot component**
@@ -176,6 +179,7 @@ git commit -m "feat: add reusable StatusDot component"
 ## Task 4: Refactor TaskCard to Use shadcn Card
 
 **Files:**
+
 - Modify: `src/components/tasks/task-card.tsx`
 
 **Step 1: Rewrite TaskCard using Card components**
@@ -254,6 +258,7 @@ git commit -m "refactor: TaskCard to use shadcn Card components and StatusDot"
 ## Task 5: Update KanbanColumn with Background Colors
 
 **Files:**
+
 - Modify: `src/components/tasks/kanban-column.tsx`
 
 **Step 1: Update KanbanColumn to use StatusDot and column backgrounds**
@@ -356,6 +361,7 @@ git commit -m "feat: add column backgrounds and StatusDot to KanbanColumn"
 ## Task 6: Create AgentCard Component
 
 **Files:**
+
 - Create: `src/components/agents/agent-card.tsx`
 
 **Step 1: Create the AgentCard component**
@@ -421,6 +427,7 @@ git commit -m "feat: add AgentCard component"
 ## Task 7: Create AgentsColumn Component
 
 **Files:**
+
 - Create: `src/components/agents/agents-column.tsx`
 
 **Step 1: Create the AgentsColumn component**
@@ -471,6 +478,7 @@ git commit -m "feat: add AgentsColumn component"
 ## Task 8: Restyle ActivityTimeline with Cards
 
 **Files:**
+
 - Modify: `src/components/activity/activity-timeline.tsx`
 
 **Step 1: Update ActivityTimeline to use Card components and avatars**
@@ -564,6 +572,7 @@ git commit -m "refactor: ActivityTimeline to use Card components and avatars"
 ## Task 9: Create Header Stats Component
 
 **Files:**
+
 - Create: `src/components/layout/header-stats.tsx`
 
 **Step 1: Create the HeaderStats component**
@@ -619,6 +628,7 @@ git commit -m "feat: add HeaderStats component for centered stats display"
 ## Task 10: Redesign Header Component
 
 **Files:**
+
 - Modify: `src/components/layout/header.tsx`
 
 **Step 1: Rewrite Header with new layout**
@@ -762,6 +772,7 @@ git commit -m "refactor: Header with centered stats, nav icons, tooltips, and an
 ## Task 11: Update Tasks Page Layout
 
 **Files:**
+
 - Modify: `src/pages/tasks.tsx`
 
 **Step 1: Update TasksPage with three-column layout**
@@ -878,6 +889,7 @@ git commit -m "refactor: TasksPage with three-column layout and stats in header"
 ## Task 12: Remove Deprecated Components
 
 **Files:**
+
 - Delete: `src/components/tasks/stats-row.tsx`
 - Delete: `src/components/tasks/action-row.tsx`
 
@@ -910,12 +922,14 @@ git commit -m "chore: remove deprecated StatsRow and ActionRow components"
 ## Task 13: Final Visual QA and Polish
 
 **Files:**
+
 - Various adjustments as needed
 
 **Step 1: Run the app and check all views**
 
 Run: `pnpm dev`
 Check:
+
 - Header height, background, nav icons, centered stats, button colors and animations
 - Agents column with cards showing avatar, name, role, status dot + label, timestamp
 - Kanban columns with tinted backgrounds, status dots, gap between columns

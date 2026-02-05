@@ -46,12 +46,12 @@ Disabled tabs: `opacity-50 cursor-not-allowed pointer-events-none`
 
 ### Stats Row
 
-| Stat | Calculation |
-|------|-------------|
-| Backlog | Count of tasks with status `inbox` or `assigned` |
-| In Progress | Count of tasks with status `in_progress` |
-| Total | Count of all tasks (including done) |
-| Completion | `done / total * 100` |
+| Stat        | Calculation                                      |
+| ----------- | ------------------------------------------------ |
+| Backlog     | Count of tasks with status `inbox` or `assigned` |
+| In Progress | Count of tasks with status `in_progress`         |
+| Total       | Count of all tasks (including done)              |
+| Completion  | `done / total * 100`                             |
 
 - Large number (text-2xl font-semibold)
 - Small muted label below
@@ -67,20 +67,22 @@ Disabled tabs: `opacity-50 cursor-not-allowed pointer-events-none`
 
 Four columns:
 
-| Column | Status Values | Dot Color |
-|--------|---------------|-----------|
-| Backlog | `inbox`, `assigned` | Blue |
-| In Progress | `in_progress` | Blue |
-| Review | `review` | Yellow |
-| Done | `done` | Green |
+| Column      | Status Values       | Dot Color |
+| ----------- | ------------------- | --------- |
+| Backlog     | `inbox`, `assigned` | Blue      |
+| In Progress | `in_progress`       | Blue      |
+| Review      | `review`            | Yellow    |
+| Done        | `done`              | Green     |
 
 **Column header**:
+
 - Colored status dot
 - Label text
 - Task count badge
 - "+" button to quick-add task
 
 **Task card anatomy**:
+
 ```
 ┌────────────────────────────┐
 │ ● Title of the task...     │  ← status dot + truncated title
@@ -119,6 +121,7 @@ Slides in from right side:
 ```
 
 **Features**:
+
 - Change status via dropdown
 - Change assignee via dropdown
 - View full description
@@ -155,6 +158,7 @@ Activities are created by the CLI when agents perform actions. Frontend only dis
 ### Create Task Modal
 
 Opens when clicking "+ New task":
+
 - Title input (required)
 - Description textarea
 - Status dropdown (defaults to Backlog)
@@ -170,6 +174,7 @@ ALTER TABLE agents ADD COLUMN avatar TEXT;
 ```
 
 **Format options**:
+
 - Emoji: `"🤖"`, `"🦊"`
 - Lucide icon name: `"bot"`, `"user"`
 - Image URL: `"https://..."`

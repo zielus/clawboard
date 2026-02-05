@@ -1,2 +1,2 @@
 #!/usr/bin/env node --import tsx
-import './clawboard.ts';
+import "./clawboard.ts";

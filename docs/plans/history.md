@@ -5,17 +5,20 @@ This document captures key decisions from previous design iterations.
 ## Evolution
 
 **v1 (Feb 2):** Simple Kanban board with Gemini security auditing
+
 - 4 columns: backlog, in_progress, review, completed
 - Threat levels with Telegram alerts via Happy persona
 - Single assignee per task
 
 **v2 (Feb 4):** Mission Control redesign
+
 - 6 tables: agents, tasks, audits, messages, activities, documents
 - 3-column UI: Agents | Mission Queue | Live Feed
 - 5 columns: inbox, assigned, in_progress, review, done
 - CLI pattern: `clawboard entity:action '<json>'`
 
 **v3 (Feb 4):** Current database migration
+
 - 7 tables + 2 junction tables
 - Multiple assignees per task (task_assignees junction)
 - Message attachments (message_attachments junction)

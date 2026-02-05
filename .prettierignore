@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.worktrees/
+pnpm-lock.yaml
+*.db
+*.db-wal
+*.db-shm

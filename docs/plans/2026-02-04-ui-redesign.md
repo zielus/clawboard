@@ -10,19 +10,19 @@ Improve visual hierarchy so important details are easier to spot at a glance.
 
 ```css
 /* Task status colors */
---status-backlog: oklch(0.55 0.01 260);      /* gray - waiting */
---status-in-progress: oklch(0.65 0.20 250);  /* blue - active work */
---status-review: oklch(0.75 0.15 85);        /* amber - needs attention */
---status-done: oklch(0.65 0.17 145);         /* green - complete */
+--status-backlog: oklch(0.55 0.01 260); /* gray - waiting */
+--status-in-progress: oklch(0.65 0.2 250); /* blue - active work */
+--status-review: oklch(0.75 0.15 85); /* amber - needs attention */
+--status-done: oklch(0.65 0.17 145); /* green - complete */
 
 /* Agent status colors */
---agent-idle: oklch(0.55 0.01 260);          /* gray - not working */
---agent-active: oklch(0.65 0.17 145);        /* green - working */
---agent-blocked: oklch(0.60 0.20 25);        /* red - problem */
+--agent-idle: oklch(0.55 0.01 260); /* gray - not working */
+--agent-active: oklch(0.65 0.17 145); /* green - working */
+--agent-blocked: oklch(0.6 0.2 25); /* red - problem */
 
 /* Column backgrounds (status color at ~5% opacity) */
 --column-bg-backlog: oklch(0.55 0.01 260 / 5%);
---column-bg-in-progress: oklch(0.65 0.20 250 / 5%);
+--column-bg-in-progress: oklch(0.65 0.2 250 / 5%);
 --column-bg-review: oklch(0.75 0.15 85 / 5%);
 --column-bg-done: oklch(0.65 0.17 145 / 5%);
 ```
@@ -31,23 +31,23 @@ Improve visual hierarchy so important details are easier to spot at a glance.
 
 ```ts
 export const TASK_STATUS_COLORS = {
-  backlog: 'var(--status-backlog)',
-  in_progress: 'var(--status-in-progress)',
-  review: 'var(--status-review)',
-  done: 'var(--status-done)',
+  backlog: "var(--status-backlog)",
+  in_progress: "var(--status-in-progress)",
+  review: "var(--status-review)",
+  done: "var(--status-done)",
 } as const;
 
 export const AGENT_STATUS_COLORS = {
-  idle: 'var(--agent-idle)',
-  active: 'var(--agent-active)',
-  blocked: 'var(--agent-blocked)',
+  idle: "var(--agent-idle)",
+  active: "var(--agent-active)",
+  blocked: "var(--agent-blocked)",
 } as const;
 
 export const COLUMN_BACKGROUNDS = {
-  backlog: 'var(--column-bg-backlog)',
-  in_progress: 'var(--column-bg-in-progress)',
-  review: 'var(--column-bg-review)',
-  done: 'var(--column-bg-done)',
+  backlog: "var(--column-bg-backlog)",
+  in_progress: "var(--column-bg-in-progress)",
+  review: "var(--column-bg-review)",
+  done: "var(--column-bg-done)",
 } as const;
 ```
 
@@ -151,8 +151,8 @@ Reusable colored dot for status indicators across the app (task cards, agent car
 
 ```tsx
 interface StatusDotProps {
-  color: string;  // CSS variable like 'var(--status-in-progress)'
-  size?: 'sm' | 'md';  // sm=6px, md=8px (default)
+  color: string; // CSS variable like 'var(--status-in-progress)'
+  size?: "sm" | "md"; // sm=6px, md=8px (default)
 }
 ```
 

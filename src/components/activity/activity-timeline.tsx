@@ -7,7 +7,10 @@ interface ActivityTimelineProps {
   activities: Activity[];
 }
 
-const actionConfig: Record<ActivityType, { icon: typeof ArrowRight; label: string; color: string }> = {
+const actionConfig: Record<
+  ActivityType,
+  { icon: typeof ArrowRight; label: string; color: string }
+> = {
   moved: { icon: ArrowRight, label: "moved", color: "text-blue-400" },
   created: { icon: Plus, label: "created", color: "text-emerald-400" },
   commented: { icon: MessageSquare, label: "commented on", color: "text-amber-400" },
@@ -39,7 +42,9 @@ export function ActivityTimeline({ activities }: ActivityTimelineProps) {
   return (
     <div className="hidden w-80 shrink-0 flex-col border-l border-border/40 bg-card/30 xl:flex">
       <div className="px-4 py-3">
-        <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Activity</h2>
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          Activity
+        </h2>
       </div>
       <ScrollArea className="flex-1">
         <div className="space-y-1 px-3 pb-4">
@@ -56,19 +61,12 @@ export function ActivityTimeline({ activities }: ActivityTimelineProps) {
               >
                 <div className="flex items-start gap-3">
                   <Avatar className="h-6 w-6 shrink-0">
-                    <AvatarImage
-                      src={activity.agent?.avatar || undefined}
-                      alt={agentName}
-                    />
-                    <AvatarFallback className="text-[9px]">
-                      {getInitials(agentName)}
-                    </AvatarFallback>
+                    <AvatarImage src={activity.agent?.avatar || undefined} alt={agentName} />
+                    <AvatarFallback className="text-[9px]">{getInitials(agentName)}</AvatarFallback>
                   </Avatar>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm leading-relaxed">
-                      <span className="font-medium text-foreground">
-                        {agentName.split(" ")[0]}
-                      </span>{" "}
+                      <span className="font-medium text-foreground">{agentName.split(" ")[0]}</span>{" "}
                       <span className={`inline-flex items-center gap-1 ${config.color}`}>
                         <Icon className="h-3 w-3" />
                         {config.label}

@@ -13,6 +13,7 @@
 ## Task 1: Install Prettier and Configure
 
 **Files:**
+
 - Create: `.prettierrc`
 - Create: `.prettierignore`
 - Modify: `package.json` (add scripts and devDependencies)
@@ -21,6 +22,7 @@
 **Step 1: Install dependencies**
 
 Run:
+
 ```bash
 pnpm add -D prettier eslint-config-prettier
 ```
@@ -30,6 +32,7 @@ Expected: Dependencies added to package.json devDependencies
 **Step 2: Create Prettier config**
 
 Create `.prettierrc`:
+
 ```json
 {
   "semi": true,
@@ -43,6 +46,7 @@ Create `.prettierrc`:
 **Step 3: Create Prettier ignore file**
 
 Create `.prettierignore`:
+
 ```
 dist/
 node_modules/
@@ -56,6 +60,7 @@ pnpm-lock.yaml
 **Step 4: Add scripts to package.json**
 
 Add to `scripts` section:
+
 ```json
 "format": "prettier --write .",
 "format:check": "prettier --check ."
@@ -81,6 +86,7 @@ extends: [
 **Step 6: Verify Prettier works**
 
 Run:
+
 ```bash
 pnpm format:check
 ```
@@ -90,6 +96,7 @@ Expected: Either passes or shows files that need formatting
 **Step 7: Format codebase**
 
 Run:
+
 ```bash
 pnpm format
 ```
@@ -99,6 +106,7 @@ Expected: All files formatted
 **Step 8: Verify lint still works**
 
 Run:
+
 ```bash
 pnpm lint
 ```
@@ -117,12 +125,14 @@ git commit -m "chore: add prettier with eslint integration"
 ## Task 2: Install and Configure Vitest
 
 **Files:**
+
 - Modify: `vite.config.ts` (add test config)
 - Modify: `package.json` (add test scripts)
 
 **Step 1: Install Vitest**
 
 Run:
+
 ```bash
 pnpm add -D vitest
 ```
@@ -135,10 +145,10 @@ Modify `vite.config.ts` to add test configuration:
 
 ```ts
 /// <reference types="vitest" />
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -149,22 +159,23 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:18790',
+      "/api": {
+        target: "http://localhost:18790",
         changeOrigin: true,
-      }
-    }
+      },
+    },
   },
   test: {
     globals: true,
     environment: "node",
   },
-})
+});
 ```
 
 **Step 3: Add test scripts to package.json**
 
 Add to `scripts` section:
+
 ```json
 "test": "vitest run",
 "test:watch": "vitest"
@@ -182,6 +193,7 @@ git commit -m "chore: add vitest configuration"
 ## Task 3: Add Smoke Test
 
 **Files:**
+
 - Modify: `src/components/shared/relative-time.tsx` (export getRelativeTime)
 - Create: `src/components/shared/relative-time.test.ts`
 
@@ -190,11 +202,13 @@ git commit -m "chore: add vitest configuration"
 Modify `src/components/shared/relative-time.tsx` to export the function:
 
 Change:
+
 ```ts
 function getRelativeTime(dateString: string): string {
 ```
 
 To:
+
 ```ts
 export function getRelativeTime(dateString: string): string {
 ```
@@ -242,6 +256,7 @@ describe("getRelativeTime", () => {
 **Step 3: Run test to verify it passes**
 
 Run:
+
 ```bash
 pnpm test
 ```
@@ -260,11 +275,13 @@ git commit -m "test: add smoke test for getRelativeTime"
 ## Task 4: Add GitHub Actions Workflow
 
 **Files:**
+
 - Create: `.github/workflows/ci.yml`
 
 **Step 1: Create workflow directory**
 
 Run:
+
 ```bash
 mkdir -p .github/workflows
 ```
@@ -319,6 +336,7 @@ jobs:
 **Step 3: Verify workflow syntax**
 
 Run:
+
 ```bash
 cat .github/workflows/ci.yml
 ```
@@ -339,6 +357,7 @@ git commit -m "ci: add GitHub Actions workflow for PR checks"
 **Step 1: Run all checks locally**
 
 Run:
+
 ```bash
 pnpm lint && pnpm format:check && pnpm test && pnpm build
 ```
@@ -348,6 +367,7 @@ Expected: All commands pass with no errors
 **Step 2: Format any remaining files**
 
 If format:check failed in step 1:
+
 ```bash
 pnpm format
 git add -u
@@ -359,6 +379,7 @@ git commit -m "style: format codebase with prettier"
 ## Summary
 
 After completing all tasks, you will have:
+
 - Prettier configured with ESLint integration
 - Vitest configured with a passing smoke test
 - GitHub Actions CI that runs lint, format, test, and build on PRs

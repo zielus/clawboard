@@ -13,6 +13,7 @@
 ## Task 1: Add Schema Migration for Avatar Column
 
 **Files:**
+
 - Modify: `db/schema.sql`
 
 **Step 1: Add avatar column to agents table**
@@ -47,6 +48,7 @@ git commit -m "feat(db): add avatar column to agents table"
 ## Task 2: Create TypeScript Types
 
 **Files:**
+
 - Create: `src/lib/types.ts`
 
 **Step 1: Create type definitions**
@@ -137,6 +139,7 @@ git commit -m "feat: add TypeScript type definitions"
 ## Task 3: Create Mock Data
 
 **Files:**
+
 - Create: `src/lib/mock-data.ts`
 
 **Step 1: Create mock data file**
@@ -296,6 +299,7 @@ git commit -m "feat: add mock data for development"
 ## Task 4: Create Utility Components
 
 **Files:**
+
 - Create: `src/components/shared/agent-avatar.tsx`
 - Create: `src/components/shared/relative-time.tsx`
 
@@ -433,6 +437,7 @@ git commit -m "feat: add agent-avatar and relative-time components"
 ## Task 5: Install Additional shadcn Components
 
 **Files:**
+
 - Install: dialog, scroll-area, sheet, toggle, avatar, tooltip
 
 **Step 1: Install components**
@@ -461,6 +466,7 @@ git commit -m "feat: add shadcn dialog, scroll-area, sheet, toggle, avatar, tool
 ## Task 6: Create Theme Toggle Component
 
 **Files:**
+
 - Create: `src/components/layout/theme-toggle.tsx`
 
 **Step 1: Create theme toggle**
@@ -518,6 +524,7 @@ git commit -m "feat: add theme toggle component"
 ## Task 7: Create Header Component
 
 **Files:**
+
 - Create: `src/components/layout/header.tsx`
 
 **Step 1: Create header**
@@ -623,6 +630,7 @@ git commit -m "feat: add header component with nav and controls"
 ## Task 8: Create Stats Row Component
 
 **Files:**
+
 - Create: `src/components/tasks/stats-row.tsx`
 
 **Step 1: Create stats row**
@@ -683,6 +691,7 @@ git commit -m "feat: add stats row component"
 ## Task 9: Create Action Row Component
 
 **Files:**
+
 - Create: `src/components/tasks/action-row.tsx`
 
 **Step 1: Create action row**
@@ -773,6 +782,7 @@ git commit -m "feat: add action row with agent filters"
 ## Task 10: Create Task Card Component
 
 **Files:**
+
 - Create: `src/components/tasks/task-card.tsx`
 
 **Step 1: Create task card**
@@ -867,6 +877,7 @@ git commit -m "feat: add task card component"
 ## Task 11: Create Kanban Column Component
 
 **Files:**
+
 - Create: `src/components/tasks/kanban-column.tsx`
 
 **Step 1: Create kanban column**
@@ -959,6 +970,7 @@ git commit -m "feat: add kanban column component"
 ## Task 12: Create Kanban Board Component
 
 **Files:**
+
 - Create: `src/components/tasks/kanban-board.tsx`
 
 **Step 1: Create kanban board**
@@ -1025,6 +1037,7 @@ git commit -m "feat: add kanban board component"
 ## Task 13: Create Activity Timeline Component
 
 **Files:**
+
 - Create: `src/components/activity/activity-timeline.tsx`
 
 **Step 1: Create activity timeline**
@@ -1129,6 +1142,7 @@ git commit -m "feat: add activity timeline component"
 ## Task 14: Create Task Modal Component
 
 **Files:**
+
 - Create: `src/components/tasks/task-modal.tsx`
 
 **Step 1: Create task modal**
@@ -1281,6 +1295,7 @@ git commit -m "feat: add task modal component"
 ## Task 15: Create Task Drawer Component
 
 **Files:**
+
 - Create: `src/components/tasks/task-drawer.tsx`
 
 **Step 1: Create task drawer**
@@ -1470,6 +1485,7 @@ git commit -m "feat: add task drawer component"
 ## Task 16: Create Tasks Page
 
 **Files:**
+
 - Create: `src/pages/tasks.tsx`
 
 **Step 1: Create tasks page**
@@ -1604,6 +1620,7 @@ git commit -m "feat: add tasks page composition"
 ## Task 17: Update App.tsx to Use Tasks Page
 
 **Files:**
+
 - Modify: `src/App.tsx`
 
 **Step 1: Update App.tsx**
@@ -1636,6 +1653,7 @@ pnpm dev
 ```
 
 Open http://localhost:5173 and verify:
+
 - Header shows with logo, nav, controls
 - Stats row shows counts
 - Kanban board shows columns with cards
@@ -1656,6 +1674,7 @@ git commit -m "feat: wire up tasks page as main view"
 ## Task 18: Clean Up Unused Files
 
 **Files:**
+
 - Delete: `src/components/component-example.tsx`
 - Delete: `src/components/example.tsx`
 
@@ -1697,6 +1716,7 @@ After completing all tasks, you will have:
 9. Working UI with mock data
 
 Next steps (future tasks):
+
 - WebSocket integration with Gateway
 - Real data fetching
 - Task mutations (update status, assignee)

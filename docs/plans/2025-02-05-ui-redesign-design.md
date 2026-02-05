@@ -20,6 +20,7 @@ Migrate the v0 Mission Control UI to Clawboard, keeping our OKLCH color theme an
 Copy v0's component code directly into the project, then adapt each file to use our color variables and data types.
 
 **Why this approach:**
+
 - v0's components are already well-structured and ready to copy
 - Keep existing Vite + React 19 setup (no Next.js migration)
 - HSL classes map to our CSS variables automatically (both use shadcn/ui conventions)
@@ -29,12 +30,12 @@ Copy v0's component code directly into the project, then adapt each file to use 
 
 ### Components to Replace
 
-| v0 Source | Clawboard Destination |
-|-----------|----------------------|
-| `components/dashboard-header.tsx` | `src/components/layout/header.tsx` |
-| `components/agents-panel.tsx` | `src/components/agents/agents-column.tsx` |
-| `components/kanban-board.tsx` | `src/components/tasks/kanban-board.tsx` |
-| `components/activity-feed.tsx` | `src/components/activity/activity-timeline.tsx` |
+| v0 Source                         | Clawboard Destination                           |
+| --------------------------------- | ----------------------------------------------- |
+| `components/dashboard-header.tsx` | `src/components/layout/header.tsx`              |
+| `components/agents-panel.tsx`     | `src/components/agents/agents-column.tsx`       |
+| `components/kanban-board.tsx`     | `src/components/tasks/kanban-board.tsx`         |
+| `components/activity-feed.tsx`    | `src/components/activity/activity-timeline.tsx` |
 
 ### Files to Keep
 
@@ -54,11 +55,13 @@ Copy v0's component code directly into the project, then adapt each file to use 
 ### Task Status
 
 **Before:**
+
 ```sql
 CHECK(status IN ('inbox', 'assigned', 'in_progress', 'review', 'done'))
 ```
 
 **After:**
+
 ```sql
 CHECK(status IN ('backlog', 'in_progress', 'review', 'done'))
 ```
@@ -68,11 +71,13 @@ Consolidates `inbox` and `assigned` into `backlog`.
 ### Activity Type
 
 **Before:**
+
 ```sql
 CHECK(type IN ('task_created', 'task_updated', 'status_changed', 'message_sent', 'document_created', 'audit_completed'))
 ```
 
 **After:**
+
 ```sql
 CHECK(type IN ('created', 'moved', 'commented', 'updated'))
 ```

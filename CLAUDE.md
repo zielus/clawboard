@@ -22,6 +22,7 @@ clawboard <entity>:<action> '<json>'
 ### Available Commands
 
 **Agents**
+
 ```bash
 clawboard agents:create '{"name": "Agent Name", "role": "Developer", "status": "active|idle|blocked"}'
 clawboard agents:list
@@ -30,6 +31,7 @@ clawboard agents:delete '{"id": "..."}'
 ```
 
 **Tasks**
+
 ```bash
 clawboard tasks:create '{"title": "...", "description": "...", "status": "backlog|in_progress|review|done"}'
 clawboard tasks:list
@@ -40,6 +42,7 @@ clawboard tasks:delete '{"id": "..."}'
 ```
 
 **Messages**
+
 ```bash
 clawboard messages:create '{"taskId": "...", "agentId": "...", "content": "..."}'
 clawboard messages:list '{"taskId": "..."}'
@@ -47,6 +50,7 @@ clawboard messages:attach '{"messageId": "...", "documentId": "..."}'
 ```
 
 **Documents**
+
 ```bash
 clawboard documents:create '{"title": "...", "type": "deliverable|research|protocol", "taskId": "..."}'
 clawboard documents:list
@@ -54,18 +58,21 @@ clawboard documents:delete '{"id": "..."}'
 ```
 
 **Audits**
+
 ```bash
 clawboard audits:create '{"taskId": "...", "threatLevel": "safe|warning|critical", "content": "..."}'
 clawboard audits:list '{"taskId": "..."}'
 ```
 
 **Activities**
+
 ```bash
 clawboard activities:create '{"agentId": "...", "type": "created|moved|commented|updated", "taskId": "...", "message": "..."}'
 clawboard activities:list '{"agentId": "..."}'
 ```
 
 **Notifications**
+
 ```bash
 clawboard notifications:create '{"mentionedAgentId": "...", "content": "..."}'
 clawboard notifications:list '{"mentionedAgentId": "..."}'
@@ -73,6 +80,7 @@ clawboard notifications:deliver '{"id": "..."}'
 ```
 
 **Setup**
+
 ```bash
 clawboard setup    # Initialize database schema
 ```
@@ -137,16 +145,16 @@ src/
 
 ### Key Tables
 
-| Table | Purpose |
-|-------|---------|
-| agents | AI/human agents with status (idle/active/blocked) |
-| tasks | Tasks with status (backlog/in_progress/review/done) |
-| task_assignees | Many-to-many task assignments |
-| documents | Attachments (deliverable/research/protocol) |
-| messages | Task comments |
-| activities | Activity feed (created/moved/commented/updated) |
-| audits | Security audits (safe/warning/critical) |
-| notifications | Agent mentions |
+| Table          | Purpose                                             |
+| -------------- | --------------------------------------------------- |
+| agents         | AI/human agents with status (idle/active/blocked)   |
+| tasks          | Tasks with status (backlog/in_progress/review/done) |
+| task_assignees | Many-to-many task assignments                       |
+| documents      | Attachments (deliverable/research/protocol)         |
+| messages       | Task comments                                       |
+| activities     | Activity feed (created/moved/commented/updated)     |
+| audits         | Security audits (safe/warning/critical)             |
+| notifications  | Agent mentions                                      |
 
 ## Styling
 

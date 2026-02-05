@@ -42,7 +42,9 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
           <GripVertical className="h-4 w-4 shrink-0 text-muted-foreground/50 opacity-0 transition-opacity group-hover:opacity-100" />
         </div>
         {task.description && (
-          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{task.description}</p>
+          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-muted-foreground">
+            {task.description}
+          </p>
         )}
         <div className="mt-2 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
@@ -83,10 +85,7 @@ export function KanbanBoard({ tasks, onTaskClick }: KanbanBoardProps) {
         {columns.map((column) => {
           const columnTasks = getTasksByStatus(column.id);
           return (
-            <div
-              key={column.id}
-              className="flex h-full min-w-64 flex-1 flex-col"
-            >
+            <div key={column.id} className="flex h-full min-w-64 flex-1 flex-col">
               <div className="flex items-center gap-2 px-1 pb-3">
                 <span className={`h-2.5 w-2.5 rounded-full ${column.color}`} />
                 <h3 className="text-sm font-medium text-foreground">{column.title}</h3>

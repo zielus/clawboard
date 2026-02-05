@@ -13,22 +13,27 @@
 ## Task 1: Install Missing shadcn/ui Components
 
 **Files:**
+
 - Install: `tabs` component (used by header navigation)
 
 **Step 1: Install tabs component**
 
 Run:
+
 ```bash
 cd /Users/zielu/Projects/clawboard && pnpm dlx shadcn@latest add tabs
 ```
+
 Expected: Component installed to `src/components/ui/tabs.tsx`
 
 **Step 2: Verify installation**
 
 Run:
+
 ```bash
 ls src/components/ui/tabs.tsx
 ```
+
 Expected: File exists
 
 **Step 3: Commit**
@@ -43,16 +48,19 @@ git commit -m "chore: add tabs component from shadcn/ui"
 ## Task 2: Update Schema - Task Status
 
 **Files:**
+
 - Modify: `db/schema.sql:19-26`
 
 **Step 1: Update tasks table CHECK constraint**
 
 In `db/schema.sql`, change:
+
 ```sql
 status      TEXT DEFAULT 'inbox' CHECK(status IN ('inbox', 'assigned', 'in_progress', 'review', 'done')),
 ```
 
 To:
+
 ```sql
 status      TEXT DEFAULT 'backlog' CHECK(status IN ('backlog', 'in_progress', 'review', 'done')),
 ```
@@ -69,16 +77,19 @@ git commit -m "chore: simplify task status - consolidate inbox/assigned into bac
 ## Task 3: Update Schema - Activity Type
 
 **Files:**
+
 - Modify: `db/schema.sql:73-80`
 
 **Step 1: Update activities table CHECK constraint**
 
 In `db/schema.sql`, change:
+
 ```sql
 type       TEXT NOT NULL CHECK(type IN ('task_created', 'task_updated', 'status_changed', 'message_sent', 'document_created', 'audit_completed')),
 ```
 
 To:
+
 ```sql
 type       TEXT NOT NULL CHECK(type IN ('created', 'moved', 'commented', 'updated')),
 ```
@@ -95,16 +106,19 @@ git commit -m "chore: simplify activity types to created/moved/commented/updated
 ## Task 4: Update TypeScript Types
 
 **Files:**
+
 - Modify: `src/lib/types.ts`
 
 **Step 1: Update TaskStatus type**
 
 Change:
+
 ```typescript
 export type TaskStatus = "inbox" | "assigned" | "in_progress" | "review" | "done";
 ```
 
 To:
+
 ```typescript
 export type TaskStatus = "backlog" | "in_progress" | "review" | "done";
 ```
@@ -112,6 +126,7 @@ export type TaskStatus = "backlog" | "in_progress" | "review" | "done";
 **Step 2: Update ActivityType type**
 
 Change:
+
 ```typescript
 export type ActivityType =
   | "task_created"
@@ -123,6 +138,7 @@ export type ActivityType =
 ```
 
 To:
+
 ```typescript
 export type ActivityType = "created" | "moved" | "commented" | "updated";
 ```
@@ -139,11 +155,13 @@ git commit -m "chore: update TypeScript types to match simplified schema"
 ## Task 5: Update Mock Data
 
 **Files:**
+
 - Modify: `src/lib/mock-data.ts`
 
 **Step 1: Update mock data with new statuses and activity types**
 
 Replace entire file with:
+
 ```typescript
 // src/lib/mock-data.ts
 import type { Agent, Task, Activity } from "./types";
@@ -403,6 +421,7 @@ git commit -m "chore: update mock data with new statuses, activity types, and re
 ## Task 6: Replace Header Component
 
 **Files:**
+
 - Replace: `src/components/layout/header.tsx`
 - Delete: `src/components/layout/header-stats.tsx` (no longer needed)
 
@@ -556,6 +575,7 @@ git commit -m "feat: replace header with v0 design - integrated stats, navigatio
 ## Task 7: Replace Agents Column Component
 
 **Files:**
+
 - Replace: `src/components/agents/agents-column.tsx`
 - Delete: `src/components/agents/agent-card.tsx` (no longer needed - inlined)
 
@@ -685,6 +705,7 @@ git commit -m "feat: replace agents column with v0 design - status badges, relat
 ## Task 8: Replace Kanban Board Component
 
 **Files:**
+
 - Replace: `src/components/tasks/kanban-board.tsx`
 - Delete: `src/components/tasks/kanban-column.tsx` (no longer needed - inlined)
 - Delete: `src/components/tasks/task-card.tsx` (no longer needed - inlined)
@@ -837,6 +858,7 @@ git commit -m "feat: replace kanban board with v0 design - inline task cards, co
 ## Task 9: Replace Activity Timeline Component
 
 **Files:**
+
 - Replace: `src/components/activity/activity-timeline.tsx`
 
 **Step 1: Replace activity-timeline.tsx with v0 version**
@@ -950,6 +972,7 @@ git commit -m "feat: replace activity timeline with v0 design - action icons, re
 ## Task 10: Update TasksPage
 
 **Files:**
+
 - Modify: `src/pages/tasks.tsx`
 
 **Step 1: Update TasksPage to work with new components and types**
@@ -1022,6 +1045,7 @@ git commit -m "feat: update TasksPage for new component APIs and stats structure
 ## Task 11: Cleanup Unused Files
 
 **Files:**
+
 - Delete: `src/components/shared/status-dot.tsx` (if exists)
 - Delete: `src/components/shared/agent-avatar.tsx` (if exists)
 - Delete: `src/components/shared/relative-time.tsx` (if exists)
@@ -1056,17 +1080,21 @@ git commit -m "chore: remove unused shared components (now inlined in main compo
 **Step 1: Run type check**
 
 Run:
+
 ```bash
 cd /Users/zielu/Projects/clawboard && pnpm build
 ```
+
 Expected: Build succeeds with no TypeScript errors
 
 **Step 2: Start dev server and visually verify**
 
 Run:
+
 ```bash
 pnpm dev
 ```
+
 Expected: App loads at localhost:5173 with new v0-style UI
 
 **Step 3: Final commit if any fixes needed**
@@ -1080,17 +1108,17 @@ git commit -m "fix: address any remaining type or runtime issues"
 
 ## Summary
 
-| Task | Description |
-|------|-------------|
-| 1 | Install missing shadcn/ui tabs component |
-| 2 | Update schema - task status |
-| 3 | Update schema - activity type |
-| 4 | Update TypeScript types |
-| 5 | Update mock data |
-| 6 | Replace Header component |
-| 7 | Replace Agents Column component |
-| 8 | Replace Kanban Board component |
-| 9 | Replace Activity Timeline component |
-| 10 | Update TasksPage |
-| 11 | Cleanup unused files |
-| 12 | Verify and test |
+| Task | Description                              |
+| ---- | ---------------------------------------- |
+| 1    | Install missing shadcn/ui tabs component |
+| 2    | Update schema - task status              |
+| 3    | Update schema - activity type            |
+| 4    | Update TypeScript types                  |
+| 5    | Update mock data                         |
+| 6    | Replace Header component                 |
+| 7    | Replace Agents Column component          |
+| 8    | Replace Kanban Board component           |
+| 9    | Replace Activity Timeline component      |
+| 10   | Update TasksPage                         |
+| 11   | Cleanup unused files                     |
+| 12   | Verify and test                          |

@@ -1,11 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { Agent, AgentStatus } from "@/lib/types";
 
 interface AgentsColumnProps {
@@ -74,7 +69,9 @@ export function AgentsColumn({ agents }: AgentsColumnProps) {
                       <span className={`h-2 w-2 rounded-full ${statusColors[agent.status]}`} />
                       <span className="text-xs">{statusLabels[agent.status]}</span>
                       <span className="text-xs text-muted-foreground">·</span>
-                      <span className="text-xs text-muted-foreground">{getRelativeTime(agent.updatedAt)}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {getRelativeTime(agent.updatedAt)}
+                      </span>
                     </div>
                   </div>
                 </TooltipContent>

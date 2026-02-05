@@ -1,12 +1,6 @@
 // src/components/tasks/task-drawer.tsx
 import { X } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetClose,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -165,9 +159,7 @@ export function TaskDrawer({
               <Label>Status</Label>
               <select
                 value={task.status}
-                onChange={(e) =>
-                  onStatusChange?.(task.id, e.target.value as TaskStatus)
-                }
+                onChange={(e) => onStatusChange?.(task.id, e.target.value as TaskStatus)}
                 className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
               >
                 <option value="inbox">Backlog</option>
@@ -180,9 +172,7 @@ export function TaskDrawer({
               <Label>Assignee</Label>
               <select
                 value={task.assignees?.[0]?.id ?? ""}
-                onChange={(e) =>
-                  onAssigneeChange?.(task.id, e.target.value || null)
-                }
+                onChange={(e) => onAssigneeChange?.(task.id, e.target.value || null)}
                 className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm"
               >
                 <option value="">Unassigned</option>
@@ -198,9 +188,7 @@ export function TaskDrawer({
           {/* Description */}
           <div className="space-y-2">
             <Label>Description</Label>
-            <p className="text-sm text-muted-foreground">
-              {task.description || "No description"}
-            </p>
+            <p className="text-sm text-muted-foreground">{task.description || "No description"}</p>
           </div>
 
           <Separator />
@@ -213,10 +201,7 @@ export function TaskDrawer({
             ) : (
               <div className="space-y-3">
                 {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className="rounded-lg border border-border p-3 space-y-2"
-                  >
+                  <div key={msg.id} className="rounded-lg border border-border p-3 space-y-2">
                     <div className="flex items-center gap-2">
                       {msg.fromAgent && (
                         <>
@@ -225,9 +210,7 @@ export function TaskDrawer({
                             name={msg.fromAgent.name}
                             size="sm"
                           />
-                          <span className="text-sm font-medium">
-                            {msg.fromAgent.name}
-                          </span>
+                          <span className="text-sm font-medium">{msg.fromAgent.name}</span>
                         </>
                       )}
                       <RelativeTime
