@@ -5,7 +5,7 @@ interface RelativeTimeProps {
   className?: string;
 }
 
-function getRelativeTime(dateString: string): string {
+export function getRelativeTime(dateString: string): string {
   const date = new Date(dateString);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
