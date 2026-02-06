@@ -86,17 +86,18 @@ export function createTestDb(): Database.Database {
 
 ## Test Coverage
 
-| Entity | Operations | Test Cases |
-|--------|-----------|------------|
-| Agents | list, create, update, delete | Create with defaults, update partial, delete |
-| Tasks | list, create, update, assign, unassign, delete | Create with assignees, status change → activity |
-| Messages | list, create, attach | Create with attachments, list by taskId |
-| Documents | list, create, delete | Create with type, link to task |
-| Audits | list, create | Create with threat level, list by taskId |
-| Activities | list, create | Auto-created on task changes |
-| Notifications | list, create, deliver | Mark delivered, list by agent |
+| Entity        | Operations                                     | Test Cases                                      |
+| ------------- | ---------------------------------------------- | ----------------------------------------------- |
+| Agents        | list, create, update, delete                   | Create with defaults, update partial, delete    |
+| Tasks         | list, create, update, assign, unassign, delete | Create with assignees, status change → activity |
+| Messages      | list, create, attach                           | Create with attachments, list by taskId         |
+| Documents     | list, create, delete                           | Create with type, link to task                  |
+| Audits        | list, create                                   | Create with threat level, list by taskId        |
+| Activities    | list, create                                   | Auto-created on task changes                    |
+| Notifications | list, create, deliver                          | Mark delivered, list by agent                   |
 
 **Edge cases:**
+
 - Optional fields omitted
 - Partial updates
 - Foreign key constraints
@@ -104,24 +105,24 @@ export function createTestDb(): Database.Database {
 
 ## Files Summary
 
-| Action | File |
-|--------|------|
-| Create | `.vscode/settings.json` |
-| Create | `src/test/setup.ts` |
-| Create | `src/test/utils.ts` |
-| Create | `lib/operations/agents.ts` |
-| Create | `lib/operations/tasks.ts` |
-| Create | `lib/operations/messages.ts` |
-| Create | `lib/operations/documents.ts` |
-| Create | `lib/operations/audits.ts` |
-| Create | `lib/operations/activities.ts` |
-| Create | `lib/operations/notifications.ts` |
-| Create | `lib/operations/index.ts` |
-| Create | `lib/operations/agents.test.ts` |
-| Create | `lib/operations/tasks.test.ts` |
-| Create | `lib/operations/messages.test.ts` |
-| Create | `lib/operations/documents.test.ts` |
-| Create | `lib/operations/audits.test.ts` |
-| Create | `lib/operations/activities.test.ts` |
-| Create | `lib/operations/notifications.test.ts` |
-| Refactor | `bin/clawboard.ts` |
+| Action   | File                                   |
+| -------- | -------------------------------------- |
+| Create   | `.vscode/settings.json`                |
+| Create   | `src/test/setup.ts`                    |
+| Create   | `src/test/utils.ts`                    |
+| Create   | `lib/operations/agents.ts`             |
+| Create   | `lib/operations/tasks.ts`              |
+| Create   | `lib/operations/messages.ts`           |
+| Create   | `lib/operations/documents.ts`          |
+| Create   | `lib/operations/audits.ts`             |
+| Create   | `lib/operations/activities.ts`         |
+| Create   | `lib/operations/notifications.ts`      |
+| Create   | `lib/operations/index.ts`              |
+| Create   | `lib/operations/agents.test.ts`        |
+| Create   | `lib/operations/tasks.test.ts`         |
+| Create   | `lib/operations/messages.test.ts`      |
+| Create   | `lib/operations/documents.test.ts`     |
+| Create   | `lib/operations/audits.test.ts`        |
+| Create   | `lib/operations/activities.test.ts`    |
+| Create   | `lib/operations/notifications.test.ts` |
+| Refactor | `bin/clawboard.ts`                     |

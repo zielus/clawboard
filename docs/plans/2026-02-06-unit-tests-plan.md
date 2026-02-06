@@ -13,6 +13,7 @@
 ### Task 1: VS Code File Nesting Configuration
 
 **Files:**
+
 - Create: `.vscode/settings.json`
 
 **Step 1: Create VS Code settings**
@@ -43,6 +44,7 @@ git commit -m "chore: add VS Code file nesting for test files"
 ### Task 2: Test Infrastructure
 
 **Files:**
+
 - Create: `src/test/setup.ts`
 - Create: `src/test/utils.ts`
 
@@ -88,6 +90,7 @@ git commit -m "chore: add test infrastructure with in-memory SQLite helper"
 ### Task 3: Extract Agents Operations
 
 **Files:**
+
 - Create: `lib/operations/agents.ts`
 - Create: `lib/operations/agents.test.ts`
 
@@ -267,7 +270,9 @@ export function agentsUpdate(db: Database.Database, input: UpdateAgentInput): Ag
   }
 
   const { id, ...updates } = input;
-  const fields = Object.keys(updates).filter((k) => updates[k as keyof typeof updates] !== undefined);
+  const fields = Object.keys(updates).filter(
+    (k) => updates[k as keyof typeof updates] !== undefined
+  );
 
   if (fields.length === 0) {
     throw new Error("no fields to update");
@@ -320,6 +325,7 @@ git commit -m "feat: extract agents operations with tests"
 ### Task 4: Extract Activities Operations
 
 **Files:**
+
 - Create: `lib/operations/activities.ts`
 - Create: `lib/operations/activities.test.ts`
 
@@ -490,6 +496,7 @@ git commit -m "feat: extract activities operations with tests"
 ### Task 5: Extract Tasks Operations
 
 **Files:**
+
 - Create: `lib/operations/tasks.ts`
 - Create: `lib/operations/tasks.test.ts`
 
@@ -624,9 +631,9 @@ describe("tasks operations", () => {
     });
 
     it("throws when id is missing", () => {
-      expect(() => tasksAssign(db, { agentIds: ["a"] } as { id: string; agentIds: string[] })).toThrow(
-        "id is required"
-      );
+      expect(() =>
+        tasksAssign(db, { agentIds: ["a"] } as { id: string; agentIds: string[] })
+      ).toThrow("id is required");
     });
 
     it("throws when agentIds is empty", () => {
@@ -787,7 +794,13 @@ export function tasksUpdate(db: Database.Database, input: UpdateTaskInput): Task
     );
 
     if (updates.status && oldTask && updates.status !== oldTask.status) {
-      createActivity(db, "status_changed", `Task status changed to ${updates.status}`, undefined, id);
+      createActivity(
+        db,
+        "status_changed",
+        `Task status changed to ${updates.status}`,
+        undefined,
+        id
+      );
     } else {
       createActivity(db, "task_updated", `Task updated`, undefined, id);
     }
@@ -866,6 +879,7 @@ git commit -m "feat: extract tasks operations with tests"
 ### Task 6: Extract Documents Operations
 
 **Files:**
+
 - Create: `lib/operations/documents.ts`
 - Create: `lib/operations/documents.test.ts`
 
@@ -1014,7 +1028,13 @@ export function documentsCreate(db: Database.Database, input: CreateDocumentInpu
     input.agentId || null
   );
 
-  createActivity(db, "document_created", `Document created: ${input.title}`, input.agentId, input.taskId);
+  createActivity(
+    db,
+    "document_created",
+    `Document created: ${input.title}`,
+    input.agentId,
+    input.taskId
+  );
 
   return db.prepare("SELECT * FROM documents WHERE id = ?").get(id) as Document;
 }
@@ -1049,6 +1069,7 @@ git commit -m "feat: extract documents operations with tests"
 ### Task 7: Extract Messages Operations
 
 **Files:**
+
 - Create: `lib/operations/messages.ts`
 - Create: `lib/operations/messages.test.ts`
 
@@ -1220,7 +1241,10 @@ export interface AttachToMessageInput {
   documentIds: string[];
 }
 
-function getMessageWithAttachments(db: Database.Database, messageId: string): MessageWithAttachments {
+function getMessageWithAttachments(
+  db: Database.Database,
+  messageId: string
+): MessageWithAttachments {
   const message = db.prepare("SELECT * FROM messages WHERE id = ?").get(messageId) as Message;
   const attachments = db
     .prepare(
@@ -1329,6 +1353,7 @@ git commit -m "feat: extract messages operations with tests"
 ### Task 8: Extract Audits Operations
 
 **Files:**
+
 - Create: `lib/operations/audits.ts`
 - Create: `lib/operations/audits.test.ts`
 
@@ -1490,6 +1515,7 @@ git commit -m "feat: extract audits operations with tests"
 ### Task 9: Extract Notifications Operations
 
 **Files:**
+
 - Create: `lib/operations/notifications.ts`
 - Create: `lib/operations/notifications.test.ts`
 
@@ -1614,7 +1640,10 @@ export interface CreateNotificationInput {
   content: string;
 }
 
-export function notificationsList(db: Database.Database, input: { agentId?: string }): Notification[] {
+export function notificationsList(
+  db: Database.Database,
+  input: { agentId?: string }
+): Notification[] {
   if (input.agentId) {
     return db
       .prepare("SELECT * FROM notifications WHERE mentioned_agent_id = ? ORDER BY created_at DESC")
@@ -1672,6 +1701,7 @@ git commit -m "feat: extract notifications operations with tests"
 ### Task 10: Create Operations Index
 
 **Files:**
+
 - Create: `lib/operations/index.ts`
 
 **Step 1: Create index file**
@@ -1704,6 +1734,7 @@ git commit -m "feat: add operations index for re-exports"
 ### Task 11: Refactor CLI to Use Operations
 
 **Files:**
+
 - Modify: `bin/clawboard.ts`
 
 **Step 1: Run existing CLI to verify current behavior**
@@ -2018,19 +2049,19 @@ git commit -m "chore: format and lint fixes"
 
 ## Summary
 
-| Task | Description | Tests |
-|------|-------------|-------|
-| 1 | VS Code file nesting | - |
-| 2 | Test infrastructure | - |
-| 3 | Agents operations | 10 |
-| 4 | Activities operations | 6 |
-| 5 | Tasks operations | 14 |
-| 6 | Documents operations | 7 |
-| 7 | Messages operations | 10 |
-| 8 | Audits operations | 5 |
-| 9 | Notifications operations | 7 |
-| 10 | Operations index | - |
-| 11 | Refactor CLI | - |
-| 12 | Final verification | - |
+| Task | Description              | Tests |
+| ---- | ------------------------ | ----- |
+| 1    | VS Code file nesting     | -     |
+| 2    | Test infrastructure      | -     |
+| 3    | Agents operations        | 10    |
+| 4    | Activities operations    | 6     |
+| 5    | Tasks operations         | 14    |
+| 6    | Documents operations     | 7     |
+| 7    | Messages operations      | 10    |
+| 8    | Audits operations        | 5     |
+| 9    | Notifications operations | 7     |
+| 10   | Operations index         | -     |
+| 11   | Refactor CLI             | -     |
+| 12   | Final verification       | -     |
 
 **Total: ~59 test cases**
