@@ -4,6 +4,7 @@ import { createTestDb } from "@/test/utils";
 import { auditsList, auditsCreate } from "./audits";
 import { tasksCreate } from "./tasks";
 import { activitiesList } from "./activities";
+import type { CreateAuditInput } from "@/lib/types";
 
 describe("audits operations", () => {
   let db: Database.Database;
@@ -91,7 +92,7 @@ describe("audits operations", () => {
       // Clear activities created by tasksCreate
       db.exec("DELETE FROM activities");
 
-      const result = auditsCreate(db, {
+      auditsCreate(db, {
         taskId: task.id,
         threatLevel: "warning",
       });
@@ -104,10 +105,8 @@ describe("audits operations", () => {
     });
 
     it("throws error when taskId is missing", () => {
-      expect(() => auditsCreate(db, {} as any)).toThrow("taskId is required");
-      expect(() => auditsCreate(db, { taskId: "" })).toThrow(
-        "taskId is required"
-      );
+      expect(() => auditsCreate(db, {} as CreateAuditInput)).toThrow("taskId is required");
+      expect(() => auditsCreate(db, { taskId: "" })).toThrow("taskId is required");
     });
   });
 });

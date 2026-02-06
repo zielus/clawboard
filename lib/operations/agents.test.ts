@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import Database from "better-sqlite3";
 import { createTestDb } from "@/test/utils";
 import { agentsList, agentsCreate, agentsUpdate, agentsDelete } from "./agents";
+import type { CreateAgentInput, UpdateAgentInput } from "@/lib/types";
 
 describe("agents operations", () => {
   let db: Database.Database;
@@ -73,7 +74,7 @@ describe("agents operations", () => {
     });
 
     it("throws on missing name", () => {
-      expect(() => agentsCreate(db, {} as any)).toThrow("name is required");
+      expect(() => agentsCreate(db, {} as CreateAgentInput)).toThrow("name is required");
       expect(() => agentsCreate(db, { name: "" })).toThrow("name is required");
     });
   });
@@ -120,7 +121,9 @@ describe("agents operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() => agentsUpdate(db, { name: "Test" } as any)).toThrow("id is required");
+      expect(() => agentsUpdate(db, { name: "Test" } as UpdateAgentInput)).toThrow(
+        "id is required"
+      );
       expect(() => agentsUpdate(db, { id: "" })).toThrow("id is required");
     });
 
@@ -151,7 +154,7 @@ describe("agents operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() => agentsDelete(db, {} as any)).toThrow("id is required");
+      expect(() => agentsDelete(db, {} as { id: string })).toThrow("id is required");
       expect(() => agentsDelete(db, { id: "" })).toThrow("id is required");
     });
   });

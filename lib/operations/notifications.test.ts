@@ -2,11 +2,8 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import Database from "better-sqlite3";
 import { createTestDb } from "@/test/utils";
 import { agentsCreate } from "./agents";
-import {
-  notificationsList,
-  notificationsCreate,
-  notificationsDeliver,
-} from "./notifications";
+import { notificationsList, notificationsCreate, notificationsDeliver } from "./notifications";
+import type { CreateNotificationInput } from "@/lib/types";
 
 describe("notifications operations", () => {
   let db: Database.Database;
@@ -87,21 +84,21 @@ describe("notifications operations", () => {
     });
 
     it("throws on missing mentionedAgentId", () => {
-      expect(() =>
-        notificationsCreate(db, { content: "Test" } as any)
-      ).toThrow("mentionedAgentId is required");
-      expect(() =>
-        notificationsCreate(db, { mentionedAgentId: "", content: "Test" })
-      ).toThrow("mentionedAgentId is required");
+      expect(() => notificationsCreate(db, { content: "Test" } as CreateNotificationInput)).toThrow(
+        "mentionedAgentId is required"
+      );
+      expect(() => notificationsCreate(db, { mentionedAgentId: "", content: "Test" })).toThrow(
+        "mentionedAgentId is required"
+      );
     });
 
     it("throws on missing content", () => {
       expect(() =>
-        notificationsCreate(db, { mentionedAgentId: testAgentId } as any)
+        notificationsCreate(db, { mentionedAgentId: testAgentId } as CreateNotificationInput)
       ).toThrow("content is required");
-      expect(() =>
-        notificationsCreate(db, { mentionedAgentId: testAgentId, content: "" })
-      ).toThrow("content is required");
+      expect(() => notificationsCreate(db, { mentionedAgentId: testAgentId, content: "" })).toThrow(
+        "content is required"
+      );
     });
   });
 
@@ -126,12 +123,8 @@ describe("notifications operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() => notificationsDeliver(db, {} as any)).toThrow(
-        "id is required"
-      );
-      expect(() => notificationsDeliver(db, { id: "" })).toThrow(
-        "id is required"
-      );
+      expect(() => notificationsDeliver(db, {} as { id: string })).toThrow("id is required");
+      expect(() => notificationsDeliver(db, { id: "" })).toThrow("id is required");
     });
   });
 });

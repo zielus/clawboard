@@ -11,6 +11,7 @@ import {
   tasksUnassign,
   tasksDelete,
 } from "./tasks";
+import type { CreateTaskInput, UpdateTaskInput, AssignTaskInput } from "@/lib/types";
 
 describe("tasks operations", () => {
   let db: Database.Database;
@@ -70,10 +71,7 @@ describe("tasks operations", () => {
 
       expect(tasks).toHaveLength(1);
       expect(tasks[0].assignees).toHaveLength(2);
-      expect(tasks[0].assignees.map((a) => a.id).sort()).toEqual([
-        "agent-1",
-        "agent-2",
-      ]);
+      expect(tasks[0].assignees.map((a) => a.id).sort()).toEqual(["agent-1", "agent-2"]);
     });
 
     it("returns tasks ordered by created_at DESC", () => {
@@ -128,9 +126,7 @@ describe("tasks operations", () => {
       expect(task.description).toBe("A detailed description");
       expect(task.status).toBe("in_progress");
       expect(task.assignees).toHaveLength(2);
-      expect(task.assignees.map((a) => a.id).sort()).toEqual(
-        [agent1.id, agent2.id].sort()
-      );
+      expect(task.assignees.map((a) => a.id).sort()).toEqual([agent1.id, agent2.id].sort());
     });
 
     it("creates task_created activity", () => {
@@ -145,7 +141,7 @@ describe("tasks operations", () => {
     });
 
     it("throws on missing title", () => {
-      expect(() => tasksCreate(db, {} as any)).toThrow("title is required");
+      expect(() => tasksCreate(db, {} as CreateTaskInput)).toThrow("title is required");
       expect(() => tasksCreate(db, { title: "" })).toThrow("title is required");
     });
   });
@@ -203,9 +199,7 @@ describe("tasks operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() => tasksUpdate(db, { title: "Test" } as any)).toThrow(
-        "id is required"
-      );
+      expect(() => tasksUpdate(db, { title: "Test" } as UpdateTaskInput)).toThrow("id is required");
       expect(() => tasksUpdate(db, { id: "" })).toThrow("id is required");
     });
   });
@@ -231,9 +225,7 @@ describe("tasks operations", () => {
       });
 
       expect(result.assignees).toHaveLength(2);
-      expect(result.assignees.map((a) => a.id).sort()).toEqual(
-        [agent1Id, agent2Id].sort()
-      );
+      expect(result.assignees.map((a) => a.id).sort()).toEqual([agent1Id, agent2Id].sort());
     });
 
     it("ignores duplicate assignments", () => {
@@ -250,21 +242,17 @@ describe("tasks operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() =>
-        tasksAssign(db, { agentIds: [agent1Id] } as any)
-      ).toThrow("id is required");
-      expect(() =>
-        tasksAssign(db, { id: "", agentIds: [agent1Id] })
-      ).toThrow("id is required");
+      expect(() => tasksAssign(db, { agentIds: [agent1Id] } as AssignTaskInput)).toThrow(
+        "id is required"
+      );
+      expect(() => tasksAssign(db, { id: "", agentIds: [agent1Id] })).toThrow("id is required");
     });
 
     it("throws on missing agentIds", () => {
-      expect(() => tasksAssign(db, { id: taskId } as any)).toThrow(
+      expect(() => tasksAssign(db, { id: taskId } as AssignTaskInput)).toThrow(
         "agentIds is required"
       );
-      expect(() =>
-        tasksAssign(db, { id: taskId, agentIds: [] })
-      ).toThrow("agentIds is required");
+      expect(() => tasksAssign(db, { id: taskId, agentIds: [] })).toThrow("agentIds is required");
     });
   });
 
@@ -296,21 +284,17 @@ describe("tasks operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() =>
-        tasksUnassign(db, { agentIds: [agent1Id] } as any)
-      ).toThrow("id is required");
-      expect(() =>
-        tasksUnassign(db, { id: "", agentIds: [agent1Id] })
-      ).toThrow("id is required");
+      expect(() => tasksUnassign(db, { agentIds: [agent1Id] } as AssignTaskInput)).toThrow(
+        "id is required"
+      );
+      expect(() => tasksUnassign(db, { id: "", agentIds: [agent1Id] })).toThrow("id is required");
     });
 
     it("throws on missing agentIds", () => {
-      expect(() => tasksUnassign(db, { id: taskId } as any)).toThrow(
+      expect(() => tasksUnassign(db, { id: taskId } as AssignTaskInput)).toThrow(
         "agentIds is required"
       );
-      expect(() =>
-        tasksUnassign(db, { id: taskId, agentIds: [] })
-      ).toThrow("agentIds is required");
+      expect(() => tasksUnassign(db, { id: taskId, agentIds: [] })).toThrow("agentIds is required");
     });
   });
 
@@ -336,7 +320,7 @@ describe("tasks operations", () => {
     });
 
     it("throws on missing id", () => {
-      expect(() => tasksDelete(db, {} as any)).toThrow("id is required");
+      expect(() => tasksDelete(db, {} as { id: string })).toThrow("id is required");
       expect(() => tasksDelete(db, { id: "" })).toThrow("id is required");
     });
   });

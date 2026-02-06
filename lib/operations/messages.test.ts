@@ -6,6 +6,7 @@ import { tasksCreate } from "./tasks";
 import { documentsCreate } from "./documents";
 import { agentsCreate } from "./agents";
 import { activitiesList } from "./activities";
+import type { CreateMessageInput, AttachToMessageInput } from "@/lib/types";
 
 describe("messages operations", () => {
   let db: Database.Database;
@@ -89,9 +90,7 @@ describe("messages operations", () => {
 
       expect(result).toHaveLength(1);
       expect(result[0].attachments).toHaveLength(2);
-      expect(result[0].attachments.map((d) => d.id).sort()).toEqual(
-        [doc1.id, doc2.id].sort()
-      );
+      expect(result[0].attachments.map((d) => d.id).sort()).toEqual([doc1.id, doc2.id].sort());
     });
 
     it("returns messages ordered by created_at DESC", () => {
@@ -161,9 +160,7 @@ describe("messages operations", () => {
       });
 
       expect(result.attachments).toHaveLength(2);
-      expect(result.attachments.map((d) => d.id).sort()).toEqual(
-        [doc1.id, doc2.id].sort()
-      );
+      expect(result.attachments.map((d) => d.id).sort()).toEqual([doc1.id, doc2.id].sort());
     });
 
     it("creates message_sent activity", () => {
@@ -207,23 +204,23 @@ describe("messages operations", () => {
     });
 
     it("throws error when taskId is missing", () => {
-      expect(() =>
-        messagesCreate(db, { content: "Test" } as any)
-      ).toThrow("taskId is required");
-      expect(() =>
-        messagesCreate(db, { taskId: "", content: "Test" })
-      ).toThrow("taskId is required");
+      expect(() => messagesCreate(db, { content: "Test" } as CreateMessageInput)).toThrow(
+        "taskId is required"
+      );
+      expect(() => messagesCreate(db, { taskId: "", content: "Test" })).toThrow(
+        "taskId is required"
+      );
     });
 
     it("throws error when content is missing", () => {
       const task = tasksCreate(db, { title: "Test Task" });
 
-      expect(() =>
-        messagesCreate(db, { taskId: task.id } as any)
-      ).toThrow("content is required");
-      expect(() =>
-        messagesCreate(db, { taskId: task.id, content: "" })
-      ).toThrow("content is required");
+      expect(() => messagesCreate(db, { taskId: task.id } as CreateMessageInput)).toThrow(
+        "content is required"
+      );
+      expect(() => messagesCreate(db, { taskId: task.id, content: "" })).toThrow(
+        "content is required"
+      );
     });
   });
 
@@ -244,9 +241,7 @@ describe("messages operations", () => {
       });
 
       expect(result.attachments).toHaveLength(2);
-      expect(result.attachments.map((d) => d.id).sort()).toEqual(
-        [doc1.id, doc2.id].sort()
-      );
+      expect(result.attachments.map((d) => d.id).sort()).toEqual([doc1.id, doc2.id].sort());
     });
 
     it("ignores duplicate attachments", () => {
@@ -286,18 +281,16 @@ describe("messages operations", () => {
       });
 
       expect(result.attachments).toHaveLength(2);
-      expect(result.attachments.map((d) => d.id).sort()).toEqual(
-        [doc1.id, doc2.id].sort()
-      );
+      expect(result.attachments.map((d) => d.id).sort()).toEqual([doc1.id, doc2.id].sort());
     });
 
     it("throws error when id is missing", () => {
-      expect(() =>
-        messagesAttach(db, { documentIds: ["doc-1"] } as any)
-      ).toThrow("id is required");
-      expect(() =>
-        messagesAttach(db, { id: "", documentIds: ["doc-1"] })
-      ).toThrow("id is required");
+      expect(() => messagesAttach(db, { documentIds: ["doc-1"] } as AttachToMessageInput)).toThrow(
+        "id is required"
+      );
+      expect(() => messagesAttach(db, { id: "", documentIds: ["doc-1"] })).toThrow(
+        "id is required"
+      );
     });
 
     it("throws error when documentIds is missing or empty", () => {
@@ -307,12 +300,12 @@ describe("messages operations", () => {
         content: "Test message",
       });
 
-      expect(() =>
-        messagesAttach(db, { id: message.id } as any)
-      ).toThrow("documentIds is required");
-      expect(() =>
-        messagesAttach(db, { id: message.id, documentIds: [] })
-      ).toThrow("documentIds is required");
+      expect(() => messagesAttach(db, { id: message.id } as AttachToMessageInput)).toThrow(
+        "documentIds is required"
+      );
+      expect(() => messagesAttach(db, { id: message.id, documentIds: [] })).toThrow(
+        "documentIds is required"
+      );
     });
   });
 });

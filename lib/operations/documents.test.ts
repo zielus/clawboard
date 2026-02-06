@@ -3,6 +3,7 @@ import type Database from "better-sqlite3";
 import { createTestDb } from "@/test/utils";
 import { documentsList, documentsCreate, documentsDelete } from "./documents";
 import { activitiesList } from "./activities";
+import type { CreateDocumentInput } from "@/lib/types";
 
 describe("documents operations", () => {
   let db: Database.Database;
@@ -95,7 +96,7 @@ describe("documents operations", () => {
         VALUES ('task-1', 'Test Task', 'backlog')
       `);
 
-      const result = documentsCreate(db, {
+      documentsCreate(db, {
         title: "Doc with Activity",
         agentId: "agent-1",
         taskId: "task-1",
@@ -110,7 +111,7 @@ describe("documents operations", () => {
     });
 
     it("creates document_created activity without agent or task", () => {
-      const result = documentsCreate(db, {
+      documentsCreate(db, {
         title: "Standalone Doc",
       });
 
@@ -122,10 +123,8 @@ describe("documents operations", () => {
     });
 
     it("throws error when title is missing", () => {
-      expect(() => documentsCreate(db, {} as any)).toThrow("title is required");
-      expect(() => documentsCreate(db, { title: "" })).toThrow(
-        "title is required"
-      );
+      expect(() => documentsCreate(db, {} as CreateDocumentInput)).toThrow("title is required");
+      expect(() => documentsCreate(db, { title: "" })).toThrow("title is required");
     });
   });
 
@@ -151,7 +150,7 @@ describe("documents operations", () => {
     });
 
     it("throws error when id is missing", () => {
-      expect(() => documentsDelete(db, {} as any)).toThrow("id is required");
+      expect(() => documentsDelete(db, {} as { id: string })).toThrow("id is required");
       expect(() => documentsDelete(db, { id: "" })).toThrow("id is required");
     });
   });
