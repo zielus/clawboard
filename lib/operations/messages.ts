@@ -1,10 +1,6 @@
 import type Database from "better-sqlite3";
 import { v4 as uuidv4 } from "uuid";
-import type {
-  Message,
-  CreateMessageInput,
-  AttachToMessageInput,
-} from "../types";
+import type { Message, CreateMessageInput, AttachToMessageInput } from "../types";
 import type { Document } from "../types";
 import { createActivity } from "./activities";
 
@@ -151,13 +147,7 @@ export function messagesCreate(
   }
 
   // Create message_sent activity
-  createActivity(
-    db,
-    "message_sent",
-    "Message sent",
-    input.fromAgentId,
-    input.taskId
-  );
+  createActivity(db, "message_sent", "Message sent", input.fromAgentId, input.taskId);
 
   return getMessageWithAttachments(db, id)!;
 }

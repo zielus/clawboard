@@ -20,10 +20,7 @@ export function documentsList(db: Database.Database): Document[] {
  * Also creates a "document_created" activity
  * @throws {Error} "title is required" if title is missing or empty
  */
-export function documentsCreate(
-  db: Database.Database,
-  input: CreateDocumentInput
-): Document {
+export function documentsCreate(db: Database.Database, input: CreateDocumentInput): Document {
   if (!input.title || input.title.trim() === "") {
     throw new Error("title is required");
   }

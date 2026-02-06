@@ -6,10 +6,7 @@ import { createActivity } from "./activities";
 /**
  * List audits, optionally filtered by taskId
  */
-export function auditsList(
-  db: Database.Database,
-  input: { taskId?: string }
-): Audit[] {
+export function auditsList(db: Database.Database, input: { taskId?: string }): Audit[] {
   if (input.taskId) {
     const stmt = db.prepare(`
       SELECT id, task_id, threat_level, content, created_at
@@ -33,10 +30,7 @@ export function auditsList(
  * Also creates an "audit_completed" activity with the threatLevel in the message
  * @throws {Error} "taskId is required" if taskId is missing or empty
  */
-export function auditsCreate(
-  db: Database.Database,
-  input: CreateAuditInput
-): Audit {
+export function auditsCreate(db: Database.Database, input: CreateAuditInput): Audit {
   if (!input.taskId || input.taskId.trim() === "") {
     throw new Error("taskId is required");
   }

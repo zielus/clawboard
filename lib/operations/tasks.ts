@@ -1,12 +1,6 @@
 import type Database from "better-sqlite3";
 import { v4 as uuidv4 } from "uuid";
-import type {
-  Task,
-  Agent,
-  CreateTaskInput,
-  UpdateTaskInput,
-  AssignTaskInput,
-} from "../types";
+import type { Task, Agent, CreateTaskInput, UpdateTaskInput, AssignTaskInput } from "../types";
 import { createActivity } from "./activities";
 
 /**
@@ -19,10 +13,7 @@ export interface TaskWithAssignees extends Task {
 /**
  * Internal helper to get a task with its assignees
  */
-function getTaskWithAssignees(
-  db: Database.Database,
-  taskId: string
-): TaskWithAssignees | null {
+function getTaskWithAssignees(db: Database.Database, taskId: string): TaskWithAssignees | null {
   const taskStmt = db.prepare(`
     SELECT id, title, description, status, created_at, updated_at
     FROM tasks
@@ -88,10 +79,7 @@ export function tasksList(db: Database.Database): TaskWithAssignees[] {
  * Create a new task with optional assignees
  * @throws {Error} "title is required" if title is missing or empty
  */
-export function tasksCreate(
-  db: Database.Database,
-  input: CreateTaskInput
-): TaskWithAssignees {
+export function tasksCreate(db: Database.Database, input: CreateTaskInput): TaskWithAssignees {
   if (!input.title || input.title.trim() === "") {
     throw new Error("title is required");
   }
@@ -118,13 +106,7 @@ export function tasksCreate(
   }
 
   // Create task_created activity
-  createActivity(
-    db,
-    "task_created",
-    `Task created: ${input.title}`,
-    undefined,
-    id
-  );
+  createActivity(db, "task_created", `Task created: ${input.title}`, undefined, id);
 
   return getTaskWithAssignees(db, id)!;
 }
@@ -133,18 +115,14 @@ export function tasksCreate(
  * Update an existing task
  * @throws {Error} "id is required" if id is missing or empty
  */
-export function tasksUpdate(
-  db: Database.Database,
-  input: UpdateTaskInput
-): TaskWithAssignees {
+export function tasksUpdate(db: Database.Database, input: UpdateTaskInput): TaskWithAssignees {
   if (!input.id || input.id.trim() === "") {
     throw new Error("id is required");
   }
 
   // Get current task to check if status is changing
   const currentTask = getTaskWithAssignees(db, input.id);
-  const statusChanged =
-    input.status !== undefined && currentTask?.status !== input.status;
+  const statusChanged = input.status !== undefined && currentTask?.status !== input.status;
 
   // Build dynamic update query
   const updates: string[] = [];
@@ -198,10 +176,7 @@ export function tasksUpdate(
  * @throws {Error} "id is required" if id is missing or empty
  * @throws {Error} "agentIds is required" if agentIds is missing or empty
  */
-export function tasksAssign(
-  db: Database.Database,
-  input: AssignTaskInput
-): TaskWithAssignees {
+export function tasksAssign(db: Database.Database, input: AssignTaskInput): TaskWithAssignees {
   if (!input.id || input.id.trim() === "") {
     throw new Error("id is required");
   }
@@ -226,10 +201,7 @@ export function tasksAssign(
  * @throws {Error} "id is required" if id is missing or empty
  * @throws {Error} "agentIds is required" if agentIds is missing or empty
  */
-export function tasksUnassign(
-  db: Database.Database,
-  input: AssignTaskInput
-): TaskWithAssignees {
+export function tasksUnassign(db: Database.Database, input: AssignTaskInput): TaskWithAssignees {
   if (!input.id || input.id.trim() === "") {
     throw new Error("id is required");
   }

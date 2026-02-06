@@ -17,10 +17,7 @@ export function activitiesList(db: Database.Database): Activity[] {
 /**
  * Create a new activity and return it
  */
-export function activitiesCreate(
-  db: Database.Database,
-  input: CreateActivityInput
-): Activity {
+export function activitiesCreate(db: Database.Database, input: CreateActivityInput): Activity {
   // Validate required fields
   if (!input.type) {
     throw new Error("type is required");

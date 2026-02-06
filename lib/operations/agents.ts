@@ -18,10 +18,7 @@ export function agentsList(db: Database.Database): Agent[] {
  * Create a new agent
  * @throws {Error} "name is required" if name is missing or empty
  */
-export function agentsCreate(
-  db: Database.Database,
-  input: CreateAgentInput
-): Agent {
+export function agentsCreate(db: Database.Database, input: CreateAgentInput): Agent {
   if (!input.name || input.name.trim() === "") {
     throw new Error("name is required");
   }
@@ -57,10 +54,7 @@ export function agentsCreate(
  * @throws {Error} "id is required" if id is missing or empty
  * @throws {Error} "no fields to update" if only id is provided
  */
-export function agentsUpdate(
-  db: Database.Database,
-  input: UpdateAgentInput
-): Agent {
+export function agentsUpdate(db: Database.Database, input: UpdateAgentInput): Agent {
   if (!input.id || input.id.trim() === "") {
     throw new Error("id is required");
   }

@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import type Database from "better-sqlite3";
 import { createTestDb } from "@/test/utils";
-import {
-  activitiesList,
-  activitiesCreate,
-  createActivity,
-} from "./activities.ts";
+import { activitiesList, activitiesCreate, createActivity } from "./activities.ts";
 
 describe("activities operations", () => {
   let db: Database.Database;
@@ -176,13 +172,7 @@ describe("activities operations", () => {
         VALUES ('task-1', 'Test Task', 'backlog')
       `);
 
-      createActivity(
-        db,
-        "status_changed",
-        "Status changed to in_progress",
-        undefined,
-        "task-1"
-      );
+      createActivity(db, "status_changed", "Status changed to in_progress", undefined, "task-1");
 
       const activities = activitiesList(db);
       expect(activities).toHaveLength(1);
@@ -199,13 +189,7 @@ describe("activities operations", () => {
         VALUES ('task-1', 'Test Task', 'backlog')
       `);
 
-      createActivity(
-        db,
-        "message_sent",
-        "Agent sent message",
-        "agent-1",
-        "task-1"
-      );
+      createActivity(db, "message_sent", "Agent sent message", "agent-1", "task-1");
 
       const activities = activitiesList(db);
       expect(activities).toHaveLength(1);
